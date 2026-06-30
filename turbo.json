@@ -1,0 +1,33 @@
+{
+  "$schema": "https://v2-8-13.turborepo.dev/schema.json",
+  "globalEnv": ["CI", "AGNESCODE_DISABLE_SHARE"],
+  "globalPassThroughEnv": ["CI", "AGNESCODE_DISABLE_SHARE"],
+  "tasks": {
+    "typecheck": {},
+    "build": {
+      "dependsOn": [],
+      "outputs": ["dist/**"]
+    },
+    "opencode#test": {
+      "dependsOn": ["^build"],
+      "outputs": [],
+      "passThroughEnv": ["*"]
+    },
+    "@agnes-ai/core#test": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "@agnes-ai/app#test": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "@agnes-ai/ui#test": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "@agnes-ai/session-ui#test": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    }
+  }
+}
