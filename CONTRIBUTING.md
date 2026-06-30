@@ -14,10 +14,10 @@ However, any UI or core product feature must go through a design review with the
 
 If you are unsure if a PR would be accepted, feel free to ask a maintainer or look for issues with any of the following labels:
 
-- [`help wanted`](https://github.com/anomalyco/agnescode/issues?q=is%3Aissue%20state%3Aopen%20label%3Ahelp-wanted)
-- [`good first issue`](https://github.com/anomalyco/agnescode/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
-- [`bug`](https://github.com/anomalyco/agnescode/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug)
-- [`perf`](https://github.com/anomalyco/agnescode/issues?q=is%3Aopen%20is%3Aissue%20label%3A%22perf%22)
+- [`help wanted`](https://github.com/ViviQuan/agnescode/issues?q=is%3Aissue%20state%3Aopen%20label%3Ahelp-wanted)
+- [`good first issue`](https://github.com/ViviQuan/agnescode/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
+- [`bug`](https://github.com/ViviQuan/agnescode/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug)
+- [`perf`](https://github.com/ViviQuan/agnescode/issues?q=is%3Aopen%20is%3Aissue%20label%3A%22perf%22)
 
 > [!NOTE]
 > PRs that ignore these guardrails will likely be closed.
@@ -64,7 +64,7 @@ To compile a standalone executable:
 Then run it with:
 
 ```bash
-./packages/opencode/dist/opencode-<platform>/bin/opencode
+./packages/opencode/dist/agnes-<platform>/bin/agnes
 ```
 
 Replace `<platform>` with your platform (e.g., `darwin-arm64`, `linux-x64`).
@@ -72,26 +72,23 @@ Replace `<platform>` with your platform (e.g., `darwin-arm64`, `linux-x64`).
 - Core pieces:
   - `packages/opencode`: AgnesCode core business logic & server.
   - `packages/opencode/src/cli/cmd/tui/`: The TUI code, written in SolidJS with [opentui](https://github.com/sst/opentui)
-  - `packages/app`: The shared web UI components, written in SolidJS
-  - `packages/desktop`: The native desktop app, built with Electron (wraps `packages/app`)
+  - `packages/tui`: The standalone TUI package
   - `packages/plugin`: Source for `@agnes-ai/plugin`
 
-### Understanding bun dev vs opencode (agnescode)
+### Understanding bun dev vs the production binary
 
-During development, `bun dev` is the local equivalent of the built `opencode` command. Both run the same CLI interface:
+During development, `bun dev` is the local equivalent of the built binary. Both run the same CLI interface:
 
 ```bash
 # Development (from project root)
 bun dev --help           # Show all available commands
 bun dev serve            # Start headless API server
-bun dev web              # Start server + open web interface
 bun dev <directory>      # Start TUI in specific directory
 
 # Production
-opencode --help          # Show all available commands
-opencode serve           # Start headless API server
-opencode web             # Start server + open web interface
-opencode <directory>     # Start TUI in specific directory
+agnes --help             # Show all available commands
+agnes serve              # Start headless API server
+agnes <directory>        # Start TUI in specific directory
 ```
 
 ### Running the API Server
@@ -106,36 +103,6 @@ This starts the headless server on port 4096 by default. You can specify a diffe
 
 ```bash
 bun dev serve --port 8080
-```
-
-### Running the Web App
-
-To test UI changes during development:
-
-1. **First, start the AgnesCode server** (see [Running the API Server](#running-the-api-server) section above)
-2. **Then run the web app:**
-
-```bash
-bun run --cwd packages/app dev
-```
-
-This starts a local dev server at http://localhost:5173 (or similar port shown in output). Most UI changes can be tested here, but the server must be running for full functionality.
-
-### Running the Desktop App
-
-The desktop app is an Electron application that wraps the web UI.
-
-To run the desktop app in development:
-
-```bash
-bun run --cwd packages/desktop dev
-```
-
-To create a production build and package the app:
-
-```bash
-bun run --cwd packages/desktop build
-bun run --cwd packages/desktop package
 ```
 
 > [!NOTE]
@@ -222,8 +189,8 @@ PR titles should follow conventional commit standards:
 
 You can optionally include a scope to indicate which package is affected:
 
-- `feat(app):` feature in the app package
-- `fix(desktop):` bug fix in the desktop package
+- `feat(core):` feature in the core package
+- `fix(tui):` bug fix in the TUI package
 - `chore(opencode):` maintenance in the opencode package
 
 Examples:
@@ -259,7 +226,7 @@ This project uses [vouch](https://github.com/mitchellh/vouch) to manage contribu
 ### How it works
 
 - **Vouched users** are explicitly trusted contributors.
-- **Denounced users** are explicitly blocked. Issues and pull requests from denounced users are automatically closed. If you have been denounced, you can request to be unvouched by reaching out to a maintainer on [Discord](https://agnescode.ai/discord)
+- **Denounced users** are explicitly blocked. Issues and pull requests from denounced users are automatically closed. If you have been denounced, you can request to be unvouched by reaching out to a maintainer.
 - **Everyone else** can participate normally — you don't need to be vouched to open issues or PRs.
 
 ### For maintainers
