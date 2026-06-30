@@ -1,16 +1,16 @@
 #!/usr/bin/env node
-import { existsSync, mkdirSync, createWriteStream } from "fs"
+import { existsSync, mkdirSync } from "fs"
 import { chmod, rm, rename } from "fs/promises"
 import { join, dirname } from "path"
 import { fileURLToPath } from "url"
-import https from "https"
+import { execSync } from "child_process"
 import { platform, arch } from "os"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const BIN_DIR = join(__dirname, "..", "bin")
 const BIN_PATH = join(BIN_DIR, "agnes")
 
-const VERSION = "0.1.0"
+const VERSION = "0.1.1"
 
 function getTarget() {
   const os = platform()
@@ -28,34 +28,6 @@ function getTarget() {
   return { targetOs, targetArch, ext }
 }
 
-async function download(url, dest) {
-  return new Promise((resolve, reject) => {
-    const file = createWriteStream(dest)
-    https.get(url, (res) => {
-      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-        file.close()
-        rm(dest).catch(() => {})
-        return download(res.headers.location, dest).then(resolve).catch(reject)
-      }
-      if (res.statusCode !== 200) {
-        file.close()
-        rm(dest).catch(() => {})
-        reject(new Error(`HTTP ${res.statusCode}: ${url}`))
-        return
-      }
-      res.pipe(file)
-      file.on("finish", () => {
-        file.close()
-        resolve()
-      })
-    }).on("error", (err) => {
-      file.close()
-      rm(dest).catch(() => {})
-      reject(err)
-    })
-  })
-}
-
 async function main() {
   if (existsSync(BIN_PATH)) {
     console.log("agnes binary already installed.")
@@ -70,13 +42,11 @@ async function main() {
 
   const archivePath = join(tmpDir, filename)
   console.log(`Downloading agnes v${VERSION} for ${targetOs}-${targetArch}...`)
-  await download(url, archivePath)
+  execSync(`curl -fsSL -o "${archivePath}" "${url}"`, { stdio: "inherit" })
 
   if (ext === "tar.gz") {
-    const { execSync } = await import("child_process")
     execSync(`tar -xzf "${archivePath}" -C "${tmpDir}"`)
   } else {
-    const { execSync } = await import("child_process")
     execSync(`unzip -q "${archivePath}" -d "${tmpDir}"`)
   }
 
