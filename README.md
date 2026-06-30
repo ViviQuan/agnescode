@@ -28,14 +28,21 @@ AgnesCode is a terminal-native AI coding agent that comes with the **Agnes AI** 
 ## Quick Start
 
 ```bash
-# Clone and build from source
+# Install via npm (recommended)
+npm install -g agnescode
+
+# Run
+agnes
+
+# Or install via curl (auto-downloads binary)
+curl -fsSL https://raw.githubusercontent.com/ViviQuan/agnescode/main/install | bash
+
+# Or clone and build from source
 git clone https://github.com/ViviQuan/agnescode
-cd AgnesCode
+cd agnescode
 bun install
 bun run dev
 ```
-
-> **Note:** Prebuilt binaries and npm packages are coming soon. For now, development mode via `bun run dev` is the only supported way to run AgnesCode.
 
 On first launch, AgnesCode opens the provider connection dialog where you can enter your Agnes AI API key. Get one for free at [https://agnes-ai.com](https://agnes-ai.com).
 

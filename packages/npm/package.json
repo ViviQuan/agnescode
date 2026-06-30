@@ -1,0 +1,21 @@
+{
+  "name": "agnescode",
+  "version": "0.1.0",
+  "description": "Terminal-native AI coding agent with built-in Agnes AI",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "agnes": "./bin/agnes.js"
+  },
+  "scripts": {
+    "postinstall": "node ./scripts/download.js"
+  },
+  "files": [
+    "bin",
+    "scripts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ViviQuan/agnescode"
+  }
+}

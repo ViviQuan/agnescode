@@ -28,14 +28,21 @@ AgnesCode 是一款终端原生 AI 编程助手，内置 **Agnes AI** 支持—�
 ## 快速开始
 
 ```bash
-# 克隆并从源码构建
+# 通过 npm 安装（推荐）
+npm install -g agnescode
+
+# 运行
+agnes
+
+# 或通过 curl 安装（自动下载二进制）
+curl -fsSL https://raw.githubusercontent.com/ViviQuan/agnescode/main/install | bash
+
+# 或克隆源码构建
 git clone https://github.com/ViviQuan/agnescode
-cd AgnesCode
+cd agnescode
 bun install
 bun run dev
 ```
-
-> **注意：** 预编译二进制和 npm 包即将推出。目前仅支持通过 `bun run dev` 开发模式运行。
 
 首次启动时，AgnesCode 会自动弹出 API Key 配置界面。免费获取 API Key：[https://agnes-ai.com](https://agnes-ai.com)。
 
