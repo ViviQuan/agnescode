@@ -1,4 +1,4 @@
-<p align="center">
+<div align="center">
   <pre>
 
 █████╗  ██████╗ ███╗   ██╗███████╗███████╗ ██████╗ ██████╗ ██████╗ ███████╗
@@ -9,7 +9,7 @@
 ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝
 
   </pre>
-</p>
+</div>
 
 <p align="center"><strong>AgnesCode</strong> — 终端原生 AI 编程助手。内置 Agnes AI，免费多模态 API。基于 <a href="https://github.com/anomalyco/opencode">OpenCode</a> 构建。</p>
 
