@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { existsSync, mkdirSync } from "fs"
+import { mkdirSync } from "fs"
 import { chmod, rm, rename } from "fs/promises"
 import { join, dirname } from "path"
 import { fileURLToPath } from "url"
@@ -29,11 +29,6 @@ function getTarget() {
 }
 
 async function main() {
-  if (existsSync(BIN_PATH)) {
-    console.log("agnes binary already installed.")
-    return
-  }
-
   const { targetOs, targetArch, ext } = getTarget()
   const filename = `agnescode-${targetOs}-${targetArch}.${ext}`
   const url = `https://github.com/ViviQuan/agnescode/releases/download/v${VERSION}/${filename}`
