@@ -1,5 +1,4 @@
-<div align="center">
-  <pre>
+<pre>
 
 █████╗  ██████╗ ███╗   ██╗███████╗███████╗ ██████╗ ██████╗ ██████╗ ███████╗
 ██╔══██╗██╔════╝ ████╗  ██║██╔════╝██╔════╝██╔════╝██╔═══██╗██╔══██╗██╔════╝
@@ -8,7 +7,7 @@
 ██║  ██║╚██████╔╝██║ ╚████║███████╗███████║╚██████╗╚██████╔╝██████╔╝███████╗
 ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝
 
-  </pre>
+</pre>
 </div>
 
 <p align="center"><strong>AgnesCode</strong> — Terminal-native AI coding agent. Built-in Agnes AI, free multimodal API. Powered by <a href="https://github.com/anomalyco/opencode">OpenCode</a>.</p>
