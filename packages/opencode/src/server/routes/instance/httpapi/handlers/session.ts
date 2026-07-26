@@ -21,6 +21,7 @@ import * as Stream from "effect/Stream"
 import { HttpServerRequest, HttpServerResponse } from "effect/unstable/http"
 import { HttpApiBuilder, HttpApiError, HttpApiSchema } from "effect/unstable/httpapi"
 import { InstanceHttpApi } from "../api"
+import { InstanceState } from "@/effect/instance-state"
 import {
   CommandPayload,
   DiffQuery,
@@ -61,8 +62,9 @@ export const sessionHandlers = HttpApiBuilder.group(InstanceHttpApi, "session", 
     const scope = yield* Scope.Scope
 
     const list = Effect.fn("SessionHttpApi.list")(function* (ctx: { query: typeof ListQuery.Type }) {
+      const directory = ctx.query.directory ? yield* InstanceState.directory : undefined
       return yield* session.list({
-        directory: ctx.query.scope === "project" ? undefined : ctx.query.directory,
+        directory: ctx.query.scope === "project" ? undefined : directory,
         scope: ctx.query.scope,
         path: ctx.query.path,
         roots: ctx.query.roots,
