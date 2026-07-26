@@ -16,9 +16,7 @@ export function Logo() {
 
   return (
     <box>
-      <For each={logo}>
-        {(line) => <box flexDirection="row">{renderLine(line, theme.text)}</box>}
-      </For>
+      <For each={logo}>{(line) => <box flexDirection="row">{renderLine(line, theme.text)}</box>}</For>
     </box>
   )
 }

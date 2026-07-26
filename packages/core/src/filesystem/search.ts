@@ -230,7 +230,9 @@ export const fffLayer = Layer.effect(
   }),
 )
 
-const layer = Layer.unwrap(Effect.sync(() => (Flag.AGNESCODE_DISABLE_FFF || !Fff.available() ? ripgrepLayer : fffLayer)))
+const layer = Layer.unwrap(
+  Effect.sync(() => (Flag.AGNESCODE_DISABLE_FFF || !Fff.available() ? ripgrepLayer : fffLayer)),
+)
 
 export const locationLayer = layer
 

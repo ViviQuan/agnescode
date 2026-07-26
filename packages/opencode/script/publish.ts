@@ -124,7 +124,7 @@ if (!Script.preview) {
     "",
   ].join("\n")
 
-    for (const [pkg, pkgbuild] of [["agnes-bin", binaryPkgbuild]]) {
+  for (const [pkg, pkgbuild] of [["agnes-bin", binaryPkgbuild]]) {
     for (let i = 0; i < 30; i++) {
       try {
         await $`rm -rf ./dist/aur-${pkg}`

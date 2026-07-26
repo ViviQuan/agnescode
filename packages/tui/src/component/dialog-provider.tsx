@@ -376,8 +376,7 @@ function ApiMethod(props: ApiMethodProps) {
                 Get your Agnes AI API key to access a wide range of powerful models through a single endpoint.
               </text>
               <text fg={theme.text}>
-                Go to <span style={{ fg: theme.primary }}>https://agnes-ai.com/</span> to get a
-                key
+                Go to <span style={{ fg: theme.primary }}>https://agnes-ai.com/</span> to get a key
               </text>
             </box>
           ),

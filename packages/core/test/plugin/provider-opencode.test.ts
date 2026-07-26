@@ -270,9 +270,9 @@ describe("OpencodePlugin", () => {
         })
         yield* addPlugin()
         expect(required(yield* catalog.provider.get(ProviderV2.ID.agnescode)).request.body.apiKey).toBe("public")
-        expect(required(yield* catalog.model.get(ProviderV2.ID.agnescode, ModelV2.ID.make("output-only"))).enabled).toBe(
-          true,
-        )
+        expect(
+          required(yield* catalog.model.get(ProviderV2.ID.agnescode, ModelV2.ID.make("output-only"))).enabled,
+        ).toBe(true)
       }),
     ),
   )

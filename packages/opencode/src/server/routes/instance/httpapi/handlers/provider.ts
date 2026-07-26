@@ -52,7 +52,11 @@ export const providerHandlers = HttpApiBuilder.group(InstanceHttpApi, "provider"
         mapValues(filtered, (item) => Provider.fromModelsDevProvider(item)),
         connected,
       )
-      if (!providers.agnes && !config.disabled_providers?.includes("agnes") && !(config.enabled_providers && !config.enabled_providers.includes("agnes"))) {
+      if (
+        !providers.agnes &&
+        !config.disabled_providers?.includes("agnes") &&
+        !(config.enabled_providers && !config.enabled_providers.includes("agnes"))
+      ) {
         providers.agnes = {
           id: ProviderV2.ID.make("agnes"),
           name: "Agnes AI",

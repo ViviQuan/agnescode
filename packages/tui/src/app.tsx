@@ -269,7 +269,9 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
                     >
                       <TuiStartupProvider
                         value={{
-                          initialRoute: process.env.AGNESCODE_ROUTE ? JSON.parse(process.env.AGNESCODE_ROUTE) : undefined,
+                          initialRoute: process.env.AGNESCODE_ROUTE
+                            ? JSON.parse(process.env.AGNESCODE_ROUTE)
+                            : undefined,
                           skipInitialLoading: Boolean(process.env.AGNESCODE_FAST_BOOT),
                         }}
                       >

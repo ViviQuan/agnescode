@@ -1074,7 +1074,7 @@ The redesign intentionally removes or changes these current concepts:
 
 | Current                                 | Proposed                                                    |
 | --------------------------------------- | ----------------------------------------------------------- |
-| `@agnes-ai/llm`                      | `@agnes-ai/ai`                                           |
+| `@agnes-ai/llm`                         | `@agnes-ai/ai`                                              |
 | Mandatory `LLM.request({ model, ... })` | Inline calls or model-free portable requests                |
 | `LLM.generate` means one turn           | `LLM.generate` means complete run                           |
 | `LLMClient.generate/stream`             | `LLM.generateTurn/streamTurn` for one turn                  |

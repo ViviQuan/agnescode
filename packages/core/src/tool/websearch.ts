@@ -76,7 +76,8 @@ export const defaultConfigLayer = Layer.sync(ConfigService, () =>
       process.env.AGNESCODE_WEBSEARCH_PROVIDER === "exa" || process.env.AGNESCODE_WEBSEARCH_PROVIDER === "parallel"
         ? process.env.AGNESCODE_WEBSEARCH_PROVIDER
         : undefined,
-    enableExa: truthy("AGNESCODE_EXPERIMENTAL") || truthy("AGNESCODE_ENABLE_EXA") || truthy("AGNESCODE_EXPERIMENTAL_EXA"),
+    enableExa:
+      truthy("AGNESCODE_EXPERIMENTAL") || truthy("AGNESCODE_ENABLE_EXA") || truthy("AGNESCODE_EXPERIMENTAL_EXA"),
     enableParallel: truthy("AGNESCODE_ENABLE_PARALLEL") || truthy("AGNESCODE_EXPERIMENTAL_PARALLEL"),
     exaApiKey: process.env.EXA_API_KEY,
     parallelApiKey: process.env.PARALLEL_API_KEY,

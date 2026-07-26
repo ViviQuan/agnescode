@@ -209,7 +209,8 @@ export const SessionApi = HttpApi.make("session")
           OpenApi.annotations({
             identifier: "session.create",
             summary: "Create session",
-            description: "Create a new AgnesCode session for interacting with AI assistants and managing conversations.",
+            description:
+              "Create a new AgnesCode session for interacting with AI assistants and managing conversations.",
           }),
         ),
         HttpApiEndpoint.delete("remove", SessionPaths.remove, {

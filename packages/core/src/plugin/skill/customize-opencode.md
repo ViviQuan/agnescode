@@ -37,17 +37,17 @@ already-loaded config until then.
 
 ## Where files live
 
-| Scope                         | Path                                                                                                                      |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Scope                         | Path                                                                                                                           |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | Project config                | `./agnescode.json`, `./agnescode.jsonc`, or `.agnescode/agnescode.json` (agnescode walks up from the cwd to the worktree root) |
-| Global config                 | `~/.config/agnescode/agnescode.json` (NOT `~/.agnescode/`)                                                                   |
-| Project agents                | `.agnescode/agent/<name>.md` or `.agnescode/agents/<name>.md`                                                               |
-| Global agents                 | `~/.config/agnescode/agent(s)/<name>.md`                                                                                   |
-| Project commands              | `.agnescode/command/<name>.md` or `.agnescode/commands/<name>.md`                                                           |
-| Global commands               | `~/.config/agnescode/command(s)/<name>.md`                                                                                 |
-| Project skills                | `.agnescode/skill(s)/<name>/SKILL.md`                                                                                      |
-| Global skills                 | `~/.config/agnescode/skill(s)/<name>/SKILL.md`                                                                             |
-| External skills (auto-loaded) | `~/.claude/skills/<name>/SKILL.md`, `~/.agents/skills/<name>/SKILL.md`                                                    |
+| Global config                 | `~/.config/agnescode/agnescode.json` (NOT `~/.agnescode/`)                                                                     |
+| Project agents                | `.agnescode/agent/<name>.md` or `.agnescode/agents/<name>.md`                                                                  |
+| Global agents                 | `~/.config/agnescode/agent(s)/<name>.md`                                                                                       |
+| Project commands              | `.agnescode/command/<name>.md` or `.agnescode/commands/<name>.md`                                                              |
+| Global commands               | `~/.config/agnescode/command(s)/<name>.md`                                                                                     |
+| Project skills                | `.agnescode/skill(s)/<name>/SKILL.md`                                                                                          |
+| Global skills                 | `~/.config/agnescode/skill(s)/<name>/SKILL.md`                                                                                 |
+| External skills (auto-loaded) | `~/.claude/skills/<name>/SKILL.md`, `~/.agents/skills/<name>/SKILL.md`                                                         |
 
 Configs from each scope are deep-merged. Project overrides global. Unknown
 top-level keys in `agnescode.json` are rejected with `ConfigInvalidError`.

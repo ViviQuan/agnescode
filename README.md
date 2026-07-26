@@ -54,8 +54,8 @@ On first launch, AgnesCode opens the provider connection dialog where you can en
 
 AgnesCode ships with the **Agnes AI** provider configured out of the box.
 
-| Model | Context | Pricing |
-|-------|---------|---------|
+| Model             | Context     | Pricing            |
+| ----------------- | ----------- | ------------------ |
 | `agnes-2.5-flash` | 512K tokens | Free (promotional) |
 | `agnes-2.0-flash` | 512K tokens | Free (promotional) |
 
@@ -69,10 +69,10 @@ Beyond the built-in Agnes AI, AgnesCode supports any OpenAI-compatible provider.
 
 ### Multiple Agents
 
-| Agent | Description |
-|-------|-------------|
-| **build** | Default. Full tool permissions for development |
-| **plan** | Read-only analysis mode for code exploration and solution design |
+| Agent     | Description                                                      |
+| --------- | ---------------------------------------------------------------- |
+| **build** | Default. Full tool permissions for development                   |
+| **plan**  | Read-only analysis mode for code exploration and solution design |
 
 Press `Tab` to switch between agents.
 

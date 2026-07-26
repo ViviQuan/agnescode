@@ -581,11 +581,11 @@ export class OpenAIResponsesLanguageModel implements LanguageModelV3 {
             content.push({
               type: "text",
               text: contentPart.text,
-            providerMetadata: {
-              copilot: {
-                itemId: part.id,
+              providerMetadata: {
+                copilot: {
+                  itemId: part.id,
+                },
               },
-            },
             })
 
             for (const annotation of contentPart.annotations) {

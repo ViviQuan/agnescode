@@ -10,9 +10,7 @@ function View(props: { api: TuiPluginApi; sessionID: string }) {
   const paths = useTuiPaths()
   const theme = () => props.api.theme.current
   const has = createMemo(() =>
-    props.api.state.provider.some((item) =>
-      Object.values(item.models).some((model) => model.cost?.input !== 0),
-    ),
+    props.api.state.provider.some((item) => Object.values(item.models).some((model) => model.cost?.input !== 0)),
   )
   const done = createMemo(() => props.api.kv.get("dismissed_getting_started", false))
   const show = createMemo(() => !has() && !done())
@@ -54,9 +52,7 @@ function View(props: { api: TuiPluginApi; sessionID: string }) {
               </text>
             </box>
             <text fg={theme().textMuted}>Connect a provider to get started with AI-powered coding.</text>
-            <text fg={theme().textMuted}>
-              We recommend using Agnes AI for reliable and affordable models.
-            </text>
+            <text fg={theme().textMuted}>We recommend using Agnes AI for reliable and affordable models.</text>
             <box flexDirection="row" gap={1} justifyContent="space-between">
               <text fg={theme().text}>Connect provider</text>
               <text fg={theme().textMuted}>/connect</text>
@@ -69,7 +65,7 @@ function View(props: { api: TuiPluginApi; sessionID: string }) {
         <span style={{ fg: theme().text }}>{path().name}</span>
       </text>
       <text fg={theme().textMuted}>
-        <span style={{ fg: theme().success }}>•</span>         <b>Agnes</b>
+        <span style={{ fg: theme().success }}>•</span> <b>Agnes</b>
         <span style={{ fg: theme().text }}>
           <b>Code</b>
         </span>{" "}

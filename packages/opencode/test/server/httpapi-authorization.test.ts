@@ -107,7 +107,10 @@ describe("HttpApi authorization middleware", () => {
   itKitSecret.live("respects configured basic auth username", () =>
     Effect.gen(function* () {
       const [defaultUser, configuredUser] = yield* Effect.all(
-        [getProbe({ authorization: basic("agnescode", "secret") }), getProbe({ authorization: basic("kit", "secret") })],
+        [
+          getProbe({ authorization: basic("agnescode", "secret") }),
+          getProbe({ authorization: basic("kit", "secret") }),
+        ],
         { concurrency: "unbounded" },
       )
 

@@ -1,6 +1,6 @@
 {
   "name": "agnescode",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Terminal-native AI coding agent with built-in Agnes AI",
   "type": "module",
   "license": "MIT",
