@@ -27,8 +27,8 @@ export const AgnesPlugin = define({
           }
         })
         const models: Array<{ id: string; name: string; context: number; output: number }> = [
+          { id: "agnes-2.5-flash", name: "Agnes 2.5 Flash", context: 524288, output: 65536 },
           { id: "agnes-2.0-flash", name: "Agnes 2.0 Flash", context: 524288, output: 65536 },
-          { id: "agnes-1.5-flash", name: "Agnes 1.5 Flash", context: 262144, output: 65536 },
         ]
         for (const m of models) {
           evt.model.update("agnes", m.id, (model) => {

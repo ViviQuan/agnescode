@@ -27,7 +27,7 @@
     },
     "packages/cli": {
       "name": "@agnes-ai/cli",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "bin": {
         "lildax": "./bin/lildax.cjs",
       },
@@ -52,7 +52,7 @@
     },
     "packages/core": {
       "name": "@agnes-ai/core",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "bin": {
         "agnes": "./bin/agnes",
       },
@@ -145,7 +145,7 @@
     },
     "packages/effect-drizzle-sqlite": {
       "name": "@agnes-ai/effect-drizzle-sqlite",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "dependencies": {
         "drizzle-orm": "catalog:",
         "effect": "catalog:",
@@ -159,7 +159,7 @@
     },
     "packages/effect-sqlite-node": {
       "name": "@agnes-ai/effect-sqlite-node",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "dependencies": {
         "effect": "catalog:",
       },
@@ -171,7 +171,7 @@
     },
     "packages/llm": {
       "name": "@agnes-ai/llm",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "dependencies": {
         "@agnes-ai/schema": "workspace:*",
         "@smithy/eventstream-codec": "4.2.14",
@@ -189,7 +189,7 @@
     },
     "packages/opencode": {
       "name": "agnescode",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "bin": {
         "agnes": "./bin/agnes",
       },
@@ -318,7 +318,7 @@
     },
     "packages/plugin": {
       "name": "@agnes-ai/plugin",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "dependencies": {
         "@agnes-ai/sdk": "workspace:*",
         "@ai-sdk/provider": "3.0.8",
@@ -380,7 +380,7 @@
     },
     "packages/sdk/js": {
       "name": "@agnes-ai/sdk",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "dependencies": {
         "cross-spawn": "catalog:",
       },
@@ -395,7 +395,7 @@
     },
     "packages/server": {
       "name": "@agnes-ai/server",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "dependencies": {
         "@agnes-ai/core": "workspace:*",
         "@agnes-ai/protocol": "workspace:*",
@@ -410,7 +410,7 @@
     },
     "packages/tui": {
       "name": "@agnes-ai/tui",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "dependencies": {
         "@agnes-ai/core": "workspace:*",
         "@agnes-ai/plugin": "workspace:*",
@@ -437,7 +437,7 @@
     },
     "packages/ui": {
       "name": "@agnes-ai/ui",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "dependencies": {
         "@kobalte/core": "catalog:",
         "@pierre/diffs": "catalog:",

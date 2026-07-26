@@ -1111,6 +1111,17 @@ export function options(input: {
     result["chat_template_args"] = { enable_thinking: true }
   }
 
+  // Agnes OpenAI-compatible API channels reasoning into `reasoning_content` only
+  // when Thinking is enabled via `chat_template_kwargs`. Without it the model emits
+  // `<think>` tags inline in content, leaking reasoning as plain text.
+  if (
+    input.model.providerID === "agnes" &&
+    input.model.capabilities.reasoning &&
+    input.model.api.npm === "@ai-sdk/openai-compatible"
+  ) {
+    result["chat_template_kwargs"] = { enable_thinking: true }
+  }
+
   if (
     ["zai", "zhipuai"].some((id) => input.model.providerID.includes(id)) &&
     input.model.api.npm === "@ai-sdk/openai-compatible"
