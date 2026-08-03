@@ -20819,15 +20819,28 @@
                 "interleaved": {
                   "anyOf": [
                     {
-                      "type": "boolean",
-                      "enum": [true]
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string",
+                      "enum": ["reasoning", "reasoning_content", "reasoning_text"]
+                    },
+                    {
+                      "type": "string"
                     },
                     {
                       "type": "object",
                       "properties": {
                         "field": {
-                          "type": "string",
-                          "enum": ["reasoning", "reasoning_content", "reasoning_details"]
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": ["reasoning", "reasoning_content", "reasoning_text"]
+                            },
+                            {
+                              "type": "string"
+                            }
+                          ]
                         }
                       },
                       "required": ["field"],
@@ -21640,8 +21653,15 @@
                     "type": "object",
                     "properties": {
                       "field": {
-                        "type": "string",
-                        "enum": ["reasoning", "reasoning_content", "reasoning_details"]
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": ["reasoning", "reasoning_content", "reasoning_text"]
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
                       }
                     },
                     "required": ["field"],
