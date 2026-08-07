@@ -11,6 +11,8 @@ import type {
   SetSessionConfigOptionResponse,
 } from "@agentclientprotocol/sdk"
 import type { AssistantMessage, Event, OpencodeClient } from "@agnes-ai/sdk/v2"
+import { ProviderV2 } from "@agnes-ai/core/provider"
+import { ModelV2 } from "@agnes-ai/core/model"
 import { Effect } from "effect"
 import * as ACPService from "@/acp/service"
 import * as ACPError from "@/acp/error"
