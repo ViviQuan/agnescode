@@ -12,6 +12,7 @@ import { Database } from "@agnes-ai/core/database/database"
 import { ProjectV2 } from "@agnes-ai/core/project"
 import { ProjectTable } from "@agnes-ai/core/project/sql"
 import { AbsolutePath } from "@agnes-ai/core/schema"
+import { Project } from "@/project/project"
 import { Session as SessionNs } from "@/session/session"
 import { SessionID } from "@/session/schema"
 import { SessionTable } from "@agnes-ai/core/session/sql"
@@ -132,6 +133,9 @@ const startWorkspaceSyncingWithFlag = (projectID: ProjectV2.ID, experimentalWork
   Effect.runPromise(
     Workspace.use.startWorkspaceSyncing(projectID).pipe(Effect.provide(workspaceLayer(experimentalWorkspaces))),
   )
+
+const listWithFlag = (project: Project.Info, experimentalWorkspaces: boolean) =>
+  Effect.runPromise(Workspace.use.list(project).pipe(Effect.provide(workspaceLayer(experimentalWorkspaces))))
 
 function captureGlobalEvents() {
   const events: GlobalEvent[] = []
@@ -413,6 +417,18 @@ describe("workspace CRUD", () => {
         yield* insertWorkspace(a)
 
         expect(yield* workspace.list(instance.project)).toEqual([a, b])
+      }),
+    { git: true },
+  )
+
+  it.instance(
+    "list is disabled by the experimental workspace flag",
+    () =>
+      Effect.gen(function* () {
+        const instance = yield* requireInstance
+        yield* insertWorkspace(workspaceInfo(instance.project.id, "manual"))
+
+        expect(yield* Effect.promise(() => listWithFlag(instance.project, false))).toEqual([])
       }),
     { git: true },
   )

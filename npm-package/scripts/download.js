@@ -10,7 +10,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const BIN_DIR = join(__dirname, "..", "bin")
 const BIN_PATH = join(BIN_DIR, "agnes")
 
-const VERSION = "0.1.11"
+const VERSION = "0.1.12"
 
 function getTarget() {
   const os = platform()

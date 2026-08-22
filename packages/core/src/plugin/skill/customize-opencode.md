@@ -40,7 +40,7 @@ already-loaded config until then.
 | Scope                         | Path                                                                                                                           |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | Project config                | `./agnescode.json`, `./agnescode.jsonc`, or `.agnescode/agnescode.json` (agnescode walks up from the cwd to the worktree root) |
-| Global config                 | `~/.config/agnescode/agnescode.json` (NOT `~/.agnescode/`)                                                                     |
+| Global config                 | `~/.config/agnescode/agnescode.json` or `~/.config/agnescode/agnescode.jsonc` (NOT `~/.agnescode/`)                             |
 | Project agents                | `.agnescode/agent/<name>.md` or `.agnescode/agents/<name>.md`                                                                  |
 | Global agents                 | `~/.config/agnescode/agent(s)/<name>.md`                                                                                       |
 | Project commands              | `.agnescode/command/<name>.md` or `.agnescode/commands/<name>.md`                                                              |
