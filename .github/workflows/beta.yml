@@ -28,7 +28,7 @@ jobs:
           opencode-app-secret: ${{ secrets.AGNESCODE_APP_SECRET }}
 
       - name: Install AgnesCode
-        run: bun i -g opencode-ai
+        run: bun i -g agnescode
 
       - name: Sync beta branch
         env:
