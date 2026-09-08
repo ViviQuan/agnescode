@@ -47,7 +47,7 @@ export const dict = {
 
   "dialog.usageExceeded.freeTier.title": "Gratis grænse nået",
   "dialog.usageExceeded.freeTier.description":
-    "Abonnér på AgnesCode Go for pålidelig adgang til de bedste open source-modeller, fra $5/måned.",
+    "Abonnér på AgnesCode Go for $10/måned, og få pålidelig adgang til de bedste open source-modeller.",
   "dialog.usageExceeded.freeTier.actionLabel": "Abonnér",
   "dialog.usageExceeded.accountRateLimit.title": "Go-grænse nået",
   "dialog.usageExceeded.accountRateLimit.description":
