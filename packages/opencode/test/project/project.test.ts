@@ -736,7 +736,7 @@ describe("Project.fromDirectory with bare repos", () => {
       expect(result.project.id).not.toBe(ProjectV2.ID.global)
       expect(result.project.worktree).toBe(worktreePath)
 
-      const correctCache = path.join(barePath, "opencode")
+      const correctCache = path.join(barePath, "agnescode")
       const wrongCache = path.join(parentDir, ".git", "agnescode")
 
       expect(yield* Effect.promise(() => Bun.file(correctCache).exists())).toBe(true)
@@ -771,8 +771,8 @@ describe("Project.fromDirectory with bare repos", () => {
 
       expect(result.project.id).not.toBe(next.project.id)
 
-      const cacheA = path.join(bareA, "opencode")
-      const cacheB = path.join(bareB, "opencode")
+      const cacheA = path.join(bareA, "agnescode")
+      const cacheB = path.join(bareB, "agnescode")
       const wrongCache = path.join(parentDir, ".git", "agnescode")
 
       expect(yield* Effect.promise(() => Bun.file(cacheA).exists())).toBe(true)
@@ -801,7 +801,7 @@ describe("Project.fromDirectory with bare repos", () => {
       expect(result.project.id).not.toBe(ProjectV2.ID.global)
       expect(result.project.worktree).toBe(worktreePath)
 
-      const correctCache = path.join(barePath, "opencode")
+      const correctCache = path.join(barePath, "agnescode")
       expect(yield* Effect.promise(() => Bun.file(correctCache).exists())).toBe(true)
     }),
   )

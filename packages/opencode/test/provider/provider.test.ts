@@ -158,10 +158,10 @@ it.instance(
     const providers = yield* list
     expect(providers[ProviderV2.ID.anthropic]).toBeDefined()
     const models = Object.keys(providers[ProviderV2.ID.anthropic].models)
-    expect(models).toContain("claude-sonnet-4-20250514")
+    expect(models).toContain("claude-sonnet-4-5-20250929")
     expect(models.length).toBe(1)
   }),
-  { config: { provider: { anthropic: { whitelist: ["claude-sonnet-4-20250514"] } } } },
+  { config: { provider: { anthropic: { whitelist: ["claude-sonnet-4-5-20250929"] } } } },
 )
 
 it.instance(
@@ -171,9 +171,9 @@ it.instance(
     const providers = yield* list
     expect(providers[ProviderV2.ID.anthropic]).toBeDefined()
     const models = Object.keys(providers[ProviderV2.ID.anthropic].models)
-    expect(models).not.toContain("claude-sonnet-4-20250514")
+    expect(models).not.toContain("claude-sonnet-4-5-20250929")
   }),
-  { config: { provider: { anthropic: { blacklist: ["claude-sonnet-4-20250514"] } } } },
+  { config: { provider: { anthropic: { blacklist: ["claude-sonnet-4-5-20250929"] } } } },
 )
 
 it.instance(
@@ -188,7 +188,7 @@ it.instance(
   {
     config: {
       provider: {
-        anthropic: { models: { "my-alias": { id: "claude-sonnet-4-20250514", name: "My Custom Alias" } } },
+        anthropic: { models: { "my-alias": { id: "claude-sonnet-4-5-20250929", name: "My Custom Alias" } } },
       },
     },
   },
@@ -304,10 +304,10 @@ it.instance("getModel returns model for valid provider/model", () =>
   Effect.gen(function* () {
     yield* setProcessEnv("ANTHROPIC_API_KEY", "test-api-key")
     const provider = yield* Provider.Service
-    const model = yield* provider.getModel(ProviderV2.ID.anthropic, ModelV2.ID.make("claude-sonnet-4-20250514"))
+    const model = yield* provider.getModel(ProviderV2.ID.anthropic, ModelV2.ID.make("claude-sonnet-4-5-20250929"))
     expect(model).toBeDefined()
     expect(String(model.providerID)).toBe("anthropic")
-    expect(String(model.id)).toBe("claude-sonnet-4-20250514")
+    expect(String(model.id)).toBe("claude-sonnet-4-5-20250929")
     const language = yield* provider.getLanguage(model)
     expect(language).toBeDefined()
   }),
@@ -361,9 +361,9 @@ it.instance(
     yield* setProcessEnv("ANTHROPIC_API_KEY", "test-api-key")
     const model = yield* Provider.use.defaultModel()
     expect(String(model.providerID)).toBe("anthropic")
-    expect(String(model.modelID)).toBe("claude-sonnet-4-20250514")
+    expect(String(model.modelID)).toBe("claude-sonnet-4-5-20250929")
   }),
-  { config: { model: "anthropic/claude-sonnet-4-20250514" } },
+  { config: { model: "anthropic/claude-sonnet-4-5-20250929" } },
 )
 
 it.instance(
@@ -438,7 +438,7 @@ it.instance(
   "model options are merged from existing model",
   Effect.gen(function* () {
     const providers = yield* list
-    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-20250514"]
+    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-5-20250929"]
     expect(model.options.customOption).toBe("custom-value")
   }),
   {
@@ -446,7 +446,7 @@ it.instance(
       provider: {
         anthropic: {
           options: { apiKey: "test-api-key" },
-          models: { "claude-sonnet-4-20250514": { options: { customOption: "custom-value" } } },
+          models: { "claude-sonnet-4-5-20250929": { options: { customOption: "custom-value" } } },
         },
       },
     },
@@ -495,7 +495,7 @@ it.instance(
     config: {
       provider: {
         anthropic: {
-          models: { "my-sonnet": { id: "claude-sonnet-4-20250514", name: "My Sonnet Alias" } },
+          models: { "my-sonnet": { id: "claude-sonnet-4-5-20250929", name: "My Sonnet Alias" } },
         },
       },
     },
@@ -552,7 +552,7 @@ it.instance(
   Effect.gen(function* () {
     yield* set("ANTHROPIC_API_KEY", "test-api-key")
     const providers = yield* list
-    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-20250514"]
+    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-5-20250929"]
     expect(model.name).toBe("Custom Name for Sonnet")
     expect(model.capabilities.toolcall).toBe(true)
     expect(model.capabilities.attachment).toBe(true)
@@ -560,7 +560,7 @@ it.instance(
   }),
   {
     config: {
-      provider: { anthropic: { models: { "claude-sonnet-4-20250514": { name: "Custom Name for Sonnet" } } } },
+      provider: { anthropic: { models: { "claude-sonnet-4-5-20250929": { name: "Custom Name for Sonnet" } } } },
     },
   },
 )
@@ -593,16 +593,16 @@ it.instance(
     const providers = yield* list
     expect(providers[ProviderV2.ID.anthropic]).toBeDefined()
     const models = Object.keys(providers[ProviderV2.ID.anthropic].models)
-    expect(models).toContain("claude-sonnet-4-20250514")
-    expect(models).not.toContain("claude-opus-4-20250514")
+    expect(models).toContain("claude-sonnet-4-5-20250929")
+    expect(models).not.toContain("claude-opus-4-5-20251101")
     expect(models.length).toBe(1)
   }),
   {
     config: {
       provider: {
         anthropic: {
-          whitelist: ["claude-sonnet-4-20250514", "claude-opus-4-20250514"],
-          blacklist: ["claude-opus-4-20250514"],
+          whitelist: ["claude-sonnet-4-5-20250929", "claude-opus-4-5-20251101"],
+          blacklist: ["claude-opus-4-5-20251101"],
         },
       },
     },
@@ -776,9 +776,9 @@ it.instance(
     const model = yield* Provider.use.getSmallModel(ProviderV2.ID.anthropic)
     expect(model).toBeDefined()
     expect(String(model?.providerID)).toBe("anthropic")
-    expect(String(model?.id)).toBe("claude-sonnet-4-20250514")
+    expect(String(model?.id)).toBe("claude-sonnet-4-5-20250929")
   }),
-  { config: { small_model: "anthropic/claude-sonnet-4-20250514" } },
+  { config: { small_model: "anthropic/claude-sonnet-4-5-20250929" } },
 )
 
 it.instance(
@@ -863,7 +863,7 @@ it.instance(
     config: {
       provider: {
         anthropic: {
-          models: { sonnet: { id: "claude-sonnet-4-20250514" } },
+          models: { sonnet: { id: "claude-sonnet-4-5-20250929" } },
         },
       },
     },
@@ -923,7 +923,7 @@ it.instance(
   Effect.gen(function* () {
     yield* set("ANTHROPIC_API_KEY", "test-api-key")
     const providers = yield* list
-    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-20250514"]
+    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-5-20250929"]
     expect(model.cost.input).toBe(999)
     expect(model.cost.output).toBe(888)
   }),
@@ -931,7 +931,7 @@ it.instance(
     config: {
       provider: {
         anthropic: {
-          models: { "claude-sonnet-4-20250514": { cost: { input: 999, output: 888 } } },
+          models: { "claude-sonnet-4-5-20250929": { cost: { input: 999, output: 888 } } },
         },
       },
     },
@@ -1097,8 +1097,8 @@ it.instance(
 it.instance("getModel returns consistent results", () =>
   Effect.gen(function* () {
     yield* set("ANTHROPIC_API_KEY", "test-api-key")
-    const model1 = yield* Provider.use.getModel(ProviderV2.ID.anthropic, ModelV2.ID.make("claude-sonnet-4-20250514"))
-    const model2 = yield* Provider.use.getModel(ProviderV2.ID.anthropic, ModelV2.ID.make("claude-sonnet-4-20250514"))
+    const model1 = yield* Provider.use.getModel(ProviderV2.ID.anthropic, ModelV2.ID.make("claude-sonnet-4-5-20250929"))
+    const model2 = yield* Provider.use.getModel(ProviderV2.ID.anthropic, ModelV2.ID.make("claude-sonnet-4-5-20250929"))
     expect(model1.providerID).toEqual(model2.providerID)
     expect(model1.id).toEqual(model2.id)
     expect(model1).toEqual(model2)
@@ -1435,8 +1435,8 @@ it.instance("model variants are generated for reasoning models", () =>
   Effect.gen(function* () {
     yield* set("ANTHROPIC_API_KEY", "test-api-key")
     const providers = yield* list
-    // Claude sonnet 4 has reasoning capability
-    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-20250514"]
+    // Claude sonnet 4.5 has reasoning capability
+    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-5-20250929"]
     expect(model.capabilities.reasoning).toBe(true)
     expect(model.variants).toBeDefined()
     expect(Object.keys(model.variants!).length).toBeGreaterThan(0)
@@ -1448,7 +1448,7 @@ it.instance(
   Effect.gen(function* () {
     yield* set("ANTHROPIC_API_KEY", "test-api-key")
     const providers = yield* list
-    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-20250514"]
+    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-5-20250929"]
     expect(model.variants).toBeDefined()
     expect(model.variants!["high"]).toBeUndefined()
     // max variant should still exist
@@ -1458,7 +1458,7 @@ it.instance(
     config: {
       provider: {
         anthropic: {
-          models: { "claude-sonnet-4-20250514": { variants: { high: { disabled: true } } } },
+          models: { "claude-sonnet-4-5-20250929": { variants: { high: { disabled: true } } } },
         },
       },
     },
@@ -1470,7 +1470,7 @@ it.instance(
   Effect.gen(function* () {
     yield* set("ANTHROPIC_API_KEY", "test-api-key")
     const providers = yield* list
-    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-20250514"]
+    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-5-20250929"]
     expect(model.variants!["high"]).toBeDefined()
     expect(model.variants!["high"].thinking.budgetTokens).toBe(20000)
   }),
@@ -1479,7 +1479,7 @@ it.instance(
       provider: {
         anthropic: {
           models: {
-            "claude-sonnet-4-20250514": {
+            "claude-sonnet-4-5-20250929": {
               variants: { high: { thinking: { type: "enabled", budgetTokens: 20000 } } },
             },
           },
@@ -1494,7 +1494,7 @@ it.instance(
   Effect.gen(function* () {
     yield* set("ANTHROPIC_API_KEY", "test-api-key")
     const providers = yield* list
-    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-20250514"]
+    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-5-20250929"]
     expect(model.variants!["max"]).toBeDefined()
     expect(model.variants!["max"].disabled).toBeUndefined()
     expect(model.variants!["max"].customField).toBe("test")
@@ -1504,7 +1504,7 @@ it.instance(
       provider: {
         anthropic: {
           models: {
-            "claude-sonnet-4-20250514": {
+            "claude-sonnet-4-5-20250929": {
               variants: { max: { disabled: false, customField: "test" } },
             },
           },
@@ -1519,7 +1519,7 @@ it.instance(
   Effect.gen(function* () {
     yield* set("ANTHROPIC_API_KEY", "test-api-key")
     const providers = yield* list
-    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-20250514"]
+    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-5-20250929"]
     expect(model.variants).toBeDefined()
     expect(Object.keys(model.variants!).length).toBe(0)
   }),
@@ -1528,7 +1528,7 @@ it.instance(
       provider: {
         anthropic: {
           models: {
-            "claude-sonnet-4-20250514": {
+            "claude-sonnet-4-5-20250929": {
               variants: { high: { disabled: true }, max: { disabled: true } },
             },
           },
@@ -1543,7 +1543,7 @@ it.instance(
   Effect.gen(function* () {
     yield* set("ANTHROPIC_API_KEY", "test-api-key")
     const providers = yield* list
-    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-20250514"]
+    const model = providers[ProviderV2.ID.anthropic].models["claude-sonnet-4-5-20250929"]
     expect(model.variants!["high"]).toBeDefined()
     // Should have both the generated thinking config and the custom option
     expect(model.variants!["high"].thinking).toBeDefined()
@@ -1554,7 +1554,7 @@ it.instance(
       provider: {
         anthropic: {
           models: {
-            "claude-sonnet-4-20250514": { variants: { high: { extraOption: "custom-value" } } },
+            "claude-sonnet-4-5-20250929": { variants: { high: { extraOption: "custom-value" } } },
           },
         },
       },

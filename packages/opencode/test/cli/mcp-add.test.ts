@@ -22,7 +22,7 @@ describe("opencode mcp add (non-interactive subprocess)", () => {
         opencode.expectExit(result, 0)
 
         const config = yield* Effect.promise(() =>
-          Bun.file(path.join(home, ".config", "opencode", "agnescode.json")).json(),
+          Bun.file(path.join(home, ".config", "agnescode", "agnescode.json")).json(),
         )
         expect(config.mcp.github).toEqual({
           type: "remote",
@@ -58,7 +58,7 @@ describe("opencode mcp add (non-interactive subprocess)", () => {
         opencode.expectExit(result, 0)
 
         const config = yield* Effect.promise(() =>
-          Bun.file(path.join(home, ".config", "opencode", "agnescode.json")).json(),
+          Bun.file(path.join(home, ".config", "agnescode", "agnescode.json")).json(),
         )
         expect(config.mcp.local).toEqual({
           type: "local",

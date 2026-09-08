@@ -89,7 +89,7 @@ function config(attention: Partial<AttentionConfig["attention"]> = {}): Attentio
       notifications: true,
       sound: true,
       volume: 0.4,
-      sound_pack: "opencode.default",
+      sound_pack: "agnescode.default",
       sounds: {},
       ...attention,
     },
@@ -383,7 +383,7 @@ describe("createTuiAttention", () => {
     expect(audio.loadPaths).toEqual(["/tmp/question.mp3"])
 
     dispose()
-    expect(attention.soundboard.current()).toBe("opencode.default")
+    expect(attention.soundboard.current()).toBe("agnescode.default")
   })
 
   test("uses config sound overrides before active pack sounds and falls back on load failure", async () => {

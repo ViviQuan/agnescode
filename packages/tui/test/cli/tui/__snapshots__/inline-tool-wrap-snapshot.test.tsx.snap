@@ -7,7 +7,7 @@ exports[`TUI inline tool wrapping snapshots consecutive grep, glob, and read row
    ✱ Glob "**/*db*" in packages/opencode (6 matches)
    → Read packages/opencode/src/storage/db.ts [offset=1, limit=130]
    → Read packages/opencode/src/index.ts [offset=1, limit=100]
-   ✱ Grep "export const OPENCODE_DB|OPENCODE_DB|OPENCODE_DEV|Global\\.
+   ✱ Grep "export const AGNESCODE_DB|AGNESCODE_DB|AGNESCODE_DEV|Global\\.
      Path\\.data|data =" in packages/opencode/src (115 matches)"
 `;
 
@@ -20,7 +20,7 @@ exports[`TUI inline tool wrapping snapshots expanded tool errors under the tool 
    → Read packages/opencode/src/index.ts [offset=1, limit=100]
      No LSP server available for this file type.
 
-   ✱ Grep "export const OPENCODE_DB|OPENCODE_DB|OPENCODE_DEV|Global\\.
+   ✱ Grep "export const AGNESCODE_DB|AGNESCODE_DB|AGNESCODE_DEV|Global\\.
      Path\\.data|data =" in packages/opencode/src (115 matches)"
 `;
 
@@ -37,7 +37,7 @@ exports[`TUI inline tool wrapping keeps separation after a shell output block 1`
    ✱ Glob "**/*db*" in packages/opencode (6 matches)
    → Read packages/opencode/src/storage/db.ts [offset=1, limit=130]
    → Read packages/opencode/src/index.ts [offset=1, limit=100]
-   ✱ Grep "export const OPENCODE_DB|OPENCODE_DB|OPENCODE_DEV|Global\\.
+   ✱ Grep "export const AGNESCODE_DB|AGNESCODE_DB|AGNESCODE_DEV|Global\\.
      Path\\.data|data =" in packages/opencode/src (115 matches)"
 `;
 
@@ -52,7 +52,7 @@ exports[`TUI inline tool wrapping keeps separation after a padded user message 1
    ✱ Glob "**/*db*" in packages/opencode (6 matches)
    → Read packages/opencode/src/storage/db.ts [offset=1, limit=130]
    → Read packages/opencode/src/index.ts [offset=1, limit=100]
-   ✱ Grep "export const OPENCODE_DB|OPENCODE_DB|OPENCODE_DEV|Global\\.
+   ✱ Grep "export const AGNESCODE_DB|AGNESCODE_DB|AGNESCODE_DEV|Global\\.
      Path\\.data|data =" in packages/opencode/src (115 matches)"
 `;
 

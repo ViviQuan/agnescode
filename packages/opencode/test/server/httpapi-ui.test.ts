@@ -386,7 +386,7 @@ describe("HttpApi UI fallback", () => {
         username: "agnescode",
         disableEmbeddedWebUi: true,
         client: httpClient(new Response("<html>opencode</html>", { headers: { "content-type": "text/html" } })),
-      }).request(`/?auth_token=${btoa("opencode:secret")}`)
+      }).request(`/?auth_token=${btoa("agnescode:secret")}`)
 
       expect(response.status).toBe(200)
       expect(yield* responseText(response)).toBe("<html>opencode</html>")
@@ -400,7 +400,7 @@ describe("HttpApi UI fallback", () => {
         username: "agnescode",
         disableEmbeddedWebUi: true,
       }).request("/", {
-        headers: { authorization: `Basic ${btoa("opencode:secret")}` },
+        headers: { authorization: `Basic ${btoa("agnescode:secret")}` },
       })
 
       expect(response.status).toBe(200)
@@ -414,7 +414,7 @@ describe("HttpApi UI fallback", () => {
         username: "agnescode",
         disableEmbeddedWebUi: true,
       }).request("/", {
-        headers: { authorization: `Basic ${btoa("opencode:sec:ret")}` },
+        headers: { authorization: `Basic ${btoa("agnescode:sec:ret")}` },
       })
 
       expect(response.status).toBe(200)
