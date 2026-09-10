@@ -8,7 +8,8 @@ import { platform, arch } from "os"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const BIN_DIR = join(__dirname, "..", "bin")
-const BIN_PATH = join(BIN_DIR, "agnes")
+const IS_WINDOWS = platform() === "win32"
+const BIN_PATH = join(BIN_DIR, IS_WINDOWS ? "agnes.exe" : "agnes")
 
 const VERSION = "0.1.14"
 
@@ -41,11 +42,14 @@ async function main() {
 
   if (ext === "tar.gz") {
     execSync(`tar -xzf "${archivePath}" -C "${tmpDir}"`)
+  } else if (IS_WINDOWS) {
+    // Windows ships bsdtar but not unzip; bsdtar auto-detects the zip format.
+    execSync(`tar -xf "${archivePath}" -C "${tmpDir}"`)
   } else {
     execSync(`unzip -q "${archivePath}" -d "${tmpDir}"`)
   }
 
-  const extractedBin = join(tmpDir, "agnes")
+  const extractedBin = join(tmpDir, IS_WINDOWS ? "agnes.exe" : "agnes")
   await rename(extractedBin, BIN_PATH)
   await chmod(BIN_PATH, 0o755)
   await rm(tmpDir, { recursive: true, force: true })

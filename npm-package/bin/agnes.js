@@ -3,9 +3,10 @@ import { existsSync } from "fs"
 import { join, dirname } from "path"
 import { fileURLToPath } from "url"
 import { spawn } from "child_process"
+import { platform } from "os"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const binPath = join(__dirname, "agnes")
+const binPath = join(__dirname, platform() === "win32" ? "agnes.exe" : "agnes")
 
 if (!existsSync(binPath)) {
   console.error("agnes binary not found. Run 'npm install agnescode' to download it.")
