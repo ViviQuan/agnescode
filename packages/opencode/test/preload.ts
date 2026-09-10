@@ -5,6 +5,8 @@ import path from "path"
 import fs from "fs/promises"
 import { setTimeout as sleep } from "node:timers/promises"
 import { afterAll } from "bun:test"
+// xdg-basedir evaluates at import time, BEFORE the XDG_CACHE_HOME override below.
+import { xdgCache } from "xdg-basedir"
 
 // Set XDG env vars FIRST, before any src/ imports
 const dir = path.join(os.tmpdir(), "opencode-test-data-" + process.pid)
@@ -54,7 +56,27 @@ const cacheDir = path.join(dir, "cache", "opencode")
 await fs.mkdir(cacheDir, { recursive: true })
 await fs.writeFile(path.join(cacheDir, "version"), "14")
 
-// Clear provider and server auth env vars to ensure clean test state
+// Seed the test XDG cache with a locally available ripgrep binary if one exists.
+// Each `bun test` process gets a fresh XDG_CACHE_HOME (set above), so without a
+// seeded binary RipgrepBinary re-downloads ripgrep from GitHub releases on every
+// run, hanging file-search tests for minutes on slow or offline networks.
+// xdgCache is imported at the top of this file, i.e. evaluated BEFORE the
+// XDG_CACHE_HOME override above, so it still points at the user's real cache.
+const rgBinary = process.platform === "win32" ? "rg.exe" : "rg"
+const userRipgrep = Bun.which("rg") ?? path.join(xdgCache ?? "", "agnescode", "bin", rgBinary)
+const testRipgrep = path.join(dir, "cache", "bin", rgBinary)
+if (userRipgrep && (await Bun.file(userRipgrep).exists()) && !(await Bun.file(testRipgrep).exists())) {
+  await fs.mkdir(path.dirname(testRipgrep), { recursive: true })
+  await fs.copyFile(userRipgrep, testRipgrep)
+  if (process.platform !== "win32") await fs.chmod(testRipgrep, 0o755)
+}
+
+// Clear provider and server auth env vars to ensure clean test state.
+// ANTHROPIC_AUTH_TOKEN/ANTHROPIC_BASE_URL (relay credentials) are cleared too:
+// if a test's default-model resolution ever falls through to the ambient
+// provider, these would silently authorize real API calls from tests.
+delete process.env["ANTHROPIC_AUTH_TOKEN"]
+delete process.env["ANTHROPIC_BASE_URL"]
 delete process.env["ANTHROPIC_API_KEY"]
 delete process.env["OPENAI_API_KEY"]
 delete process.env["GOOGLE_API_KEY"]

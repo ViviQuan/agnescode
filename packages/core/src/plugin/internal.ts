@@ -30,7 +30,6 @@ import { FetchHttpClient, HttpClient } from "effect/unstable/http"
 import { AgentPlugin } from "./agent"
 import { CommandPlugin } from "./command"
 import { ModelsDevPlugin } from "./models-dev"
-import { ProviderPlugins } from "./provider"
 import { SkillPlugin } from "./skill"
 import { VariantPlugin } from "./variant"
 
@@ -115,6 +114,10 @@ const layer = Layer.effectDiscard(
         yield* add(ConfigAgentPlugin.Plugin)
         yield* add(ConfigCommandPlugin.Plugin)
         yield* add(ConfigSkillPlugin.Plugin)
+        // Dynamically imported: provider/* plugins import `define` from this module, so a
+        // static edge here creates a cycle (internal -> provider -> amazon-bedrock -> internal)
+        // whose ESM evaluation order leaves `AmazonBedrockPlugin` uninitialized (TDZ).
+        const { ProviderPlugins } = yield* Effect.promise(() => import("./provider"))
         for (const item of ProviderPlugins) yield* add(item)
         yield* add(ConfigExternalPlugin.Plugin)
         yield* add(ConfigProviderPlugin.Plugin)

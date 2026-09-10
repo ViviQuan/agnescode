@@ -293,7 +293,11 @@ describe("HttpApi Server.listen", () => {
       return true
     }) as typeof process.stderr.write
     try {
-      const response = await Server.Default().app.request("/status")
+      // Any in-process route works here; `/api/health` is used instead of upstream's
+      // `/status` because an unmatched path falls through to the UI catch-all, which
+      // proxies to app.agnescode.ai (NXDOMAIN) and fails offline — exactly the network
+      // dependence this handler-log assertion shouldn't have.
+      const response = await Server.Default().app.request("/api/health")
       expect(response.status).toBe(200)
     } finally {
       process.stderr.write = original

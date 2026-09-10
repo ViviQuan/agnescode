@@ -26,9 +26,24 @@ type ProviderOptions = Record<string, Record<string, JSONValue>>
 const realFetch = globalThis.fetch
 let captured: Captured | null = null
 
+// createAnthropic() falls back to these ambient env vars for baseURL/credentials; a dev shell
+// pointing ANTHROPIC_BASE_URL at a proxy/relay (e.g. a volcano-engine relay) redirects the
+// native passthrough off api.anthropic.com and breaks the URL-matching assertions. Pin the
+// provider to its defaults for the duration of each test.
+const anthropicEnvKeys = ["ANTHROPIC_BASE_URL", "ANTHROPIC_API_URL", "ANTHROPIC_API_KEY"] as const
+const savedAnthropicEnv: Partial<Record<(typeof anthropicEnvKeys)[number], string>> = {}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value)
 }
+
+beforeEach(() => {
+  captured = null
+  for (const key of anthropicEnvKeys) {
+    if (process.env[key] !== undefined) savedAnthropicEnv[key] = process.env[key]
+    delete process.env[key]
+  }
+})
 
 // The gateway returns the upstream provider's response body verbatim, so the
 // mock must answer in the wire format of the step's target provider.
@@ -110,6 +125,11 @@ beforeEach(() => {
 
 afterEach(() => {
   globalThis.fetch = realFetch
+  for (const key of anthropicEnvKeys) {
+    const saved = savedAnthropicEnv[key]
+    if (saved === undefined) delete process.env[key]
+    else process.env[key] = saved
+  }
 })
 
 // Mirrors the runtime npm rewrite in provider.ts: openai/anthropic models carry

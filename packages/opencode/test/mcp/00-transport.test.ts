@@ -1,3 +1,8 @@
+// The `00-` prefix is load-bearing. bun test runs files in lexicographic order within a
+// single process, and `mock.module` registrations (headers.test.ts, lifecycle.test.ts) are
+// process-wide and cannot be undone by mock.restore(). This file exercises the genuine MCP
+// transport, so it must execute before any file that mocks @modelcontextprotocol/sdk
+// transport modules — hence it sorts first. Do not rename it without preserving that.
 import { expect, test } from "bun:test"
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js"
 

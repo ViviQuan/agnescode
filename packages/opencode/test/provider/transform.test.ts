@@ -8,6 +8,7 @@ import { ProviderTransform } from "@/provider/transform"
 import { LLMRequestPrep } from "@/session/llm/request"
 import { ProviderV2 } from "@agnes-ai/core/provider"
 import { ModelV2 } from "@agnes-ai/core/model"
+import type * as ModelsDev from "@agnes-ai/core/models-dev"
 
 describe("ProviderTransform.options - setCacheKey", () => {
   const sessionID = "test-session-123"
@@ -5242,5 +5243,31 @@ describe("ProviderTransform.providerOptions - ai-gateway-provider", () => {
     // which @ai-sdk/openai-compatible never reads, silently dropping reasoningEffort.
     const result = ProviderTransform.providerOptions(createModel(), { reasoningEffort: "high" })
     expect(result).toEqual({ openaiCompatible: { reasoningEffort: "high" } })
+  })
+})
+
+describe("ProviderTransform.reasoningVariants - GitLab", () => {
+  const model = (reasoning_options: ModelsDev.Model["reasoning_options"]) => ({ reasoning_options }) as ModelsDev.Model
+  const target = (npm: string, id = "test-model", family = "") =>
+    ({
+      id,
+      providerID: "test",
+      family,
+      api: { id, npm, url: "" },
+      capabilities: { reasoning: true },
+      limit: { output: 64_000 },
+    }) as any
+
+  test("maps GitLab model efforts to provider-specific options", () => {
+    const options = model([{ type: "effort", values: ["max"] }])
+    const openai = target("gitlab-ai-provider", "duo-chat-gpt-5-6-sol", "gpt-sol")
+    const anthropic = target("gitlab-ai-provider", "duo-chat-opus-4-8", "claude-opus")
+
+    expect(ProviderTransform.reasoningVariants(options, openai)).toEqual({
+      max: { reasoningEffort: "max" },
+    })
+    expect(ProviderTransform.reasoningVariants(options, anthropic)).toEqual({
+      max: { thinking: { type: "adaptive", effort: "max" } },
+    })
   })
 })

@@ -257,8 +257,12 @@ const unix = process.platform !== "win32" ? it.instance : it.instance.skip
 const unixNoLLMServer = process.platform !== "win32" ? noLLMServer.instance : noLLMServer.instance.skip
 
 // Config that registers a custom "test" provider with a "test-model" model
-// so provider model lookup succeeds inside the loop.
+// so provider model lookup succeeds inside the loop. `model` pins the default
+// explicitly (as upstream tests do via per-message refs): without it the agent
+// default-model resolution can fall through to an ambient provider and hit a
+// real API whenever test bootstrap timing shifts (e.g. when ripgrep is seeded).
 const cfg = {
+  model: "test/test-model",
   provider: {
     test: {
       name: "Test",

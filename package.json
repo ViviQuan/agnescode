@@ -98,6 +98,7 @@
     "@agnes-ai/plugin": "workspace:*",
     "@agnes-ai/script": "workspace:*",
     "@agnes-ai/sdk": "workspace:*",
+    "@ai-sdk/openai": "3.0.88",
     "heap-snapshot-toolkit": "1.1.3",
     "typescript": "catalog:"
   },
@@ -125,7 +126,7 @@
     "@opentui/solid": "catalog:",
     "@types/bun": "catalog:",
     "@types/node": "catalog:",
-    "@ai-sdk/openai": "3.0.84",
+    "@ai-sdk/openai": "3.0.88",
     "@ai-sdk/anthropic": "3.0.111"
   },
   "patchedDependencies": {
@@ -144,6 +145,7 @@
     "effect@4.0.0-beta.83": "patches/effect@4.0.0-beta.83.patch",
     "@ai-sdk/openai-compatible@2.0.41": "patches/@ai-sdk%2Fopenai-compatible@2.0.41.patch",
     "@ai-sdk/groq@3.0.31": "patches/@ai-sdk%2Fgroq@3.0.31.patch",
+    "@ai-sdk/openai@3.0.88": "patches/@ai-sdk%2Fopenai@3.0.88.patch",
     "@ai-sdk/anthropic@3.0.111": "patches/@ai-sdk%2Fanthropic@3.0.111.patch",
     "@ai-sdk/amazon-bedrock@4.0.166": "patches/@ai-sdk%2Famazon-bedrock@4.0.166.patch"
   }
