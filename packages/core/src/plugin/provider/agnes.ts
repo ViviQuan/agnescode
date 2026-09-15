@@ -26,9 +26,48 @@ export const AgnesPlugin = define({
             url: "https://apihub.agnes-ai.com/v1",
           }
         })
-        const models: Array<{ id: string; name: string; context: number; output: number }> = [
-          { id: "agnes-2.5-flash", name: "Agnes 2.5 Flash", context: 524288, output: 65536 },
-          { id: "agnes-2.0-flash", name: "Agnes 2.0 Flash", context: 524288, output: 65536 },
+        // Cost is per 1M tokens. Flash models are currently billed at $0 by Agnes;
+        // Pro models use their listed prices.
+        const models: Array<{
+          id: string
+          name: string
+          context: number
+          output: number
+          status: "active" | "beta"
+          cost: { input: number; output: number; cacheRead: number }
+        }> = [
+          {
+            id: "agnes-3.0-flash",
+            name: "Agnes 3.0 Flash",
+            context: 524288,
+            output: 65536,
+            status: "active",
+            cost: { input: 0, output: 0, cacheRead: 0 },
+          },
+          {
+            id: "agnes-2.5-pro",
+            name: "Agnes 2.5 Pro",
+            context: 1048576,
+            output: 65536,
+            status: "active",
+            cost: { input: 0.45, output: 0.9, cacheRead: 0.045 },
+          },
+          {
+            id: "agnes-2.5-pro-beta",
+            name: "Agnes 2.5 Pro Beta",
+            context: 1048576,
+            output: 65536,
+            status: "beta",
+            cost: { input: 0.1, output: 0.3, cacheRead: 0.01 },
+          },
+          {
+            id: "agnes-2.5-flash",
+            name: "Agnes 2.5 Flash",
+            context: 524288,
+            output: 65536,
+            status: "active",
+            cost: { input: 0, output: 0, cacheRead: 0 },
+          },
         ]
         for (const m of models) {
           evt.model.update("agnes", m.id, (model) => {
@@ -36,10 +75,10 @@ export const AgnesPlugin = define({
             model.api = { id: m.id, type: "aisdk", package: "@ai-sdk/openai-compatible" }
             model.capabilities = { tools: true, input: ["text", "image"], output: ["text"] }
             model.limit = { context: m.context, output: m.output }
-            model.status = "active"
+            model.status = m.status
             model.enabled = true
             model.time = { released: Date.now() }
-            model.cost = [{ input: 0, output: 0, cache: { read: 0, write: 0 } }]
+            model.cost = [{ input: m.cost.input, output: m.cost.output, cache: { read: m.cost.cacheRead, write: 0 } }]
           })
         }
       }),

@@ -54,12 +54,14 @@ bun run dev
 
 AgnesCode 出厂即内置 **Agnes AI** 提供商，开箱即用。
 
-| 模型              | 上下文      | 价格           |
-| ----------------- | ----------- | -------------- |
-| `agnes-2.5-flash` | 512K tokens | 免费（推广期） |
-| `agnes-2.0-flash` | 512K tokens | 免费（推广期） |
+| 模型                | 上下文      | 价格           |
+| ------------------- | ----------- | -------------- |
+| `agnes-3.0-flash`   | 512K tokens | 免费（推广期） |
+| `agnes-2.5-flash`   | 512K tokens | 免费（推广期） |
+| `agnes-2.5-pro`     | 1M tokens   | 付费           |
+| `agnes-2.5-pro-beta` | 1M tokens  | 付费           |
 
-两个模型均支持图片输入（URL 方式）、流式输出和多轮对话。`agnes-2.5-flash` 与 `agnes-2.0-flash` 额外支持工具调用、推理模式和 Agent 工作流。`agnes-2.5-flash` 是 2.0 的灰度升级模型，针对编码、智能体工作流和工具调用体验进行了优化；`agnes-2.0-flash` 仍作为稳定默认回退模型。
+所有模型均支持图片输入（URL 方式）、流式输出和多轮对话。两个 flash 模型额外支持工具调用、Thinking 模式和 Agent 工作流，其中 `agnes-3.0-flash` 针对 AgnesCode 编码与智能体工作流优化。两个 pro 模型为付费推理模型，适合高级编码、科学推理和长上下文分析；`agnes-2.0-flash` 已废弃并移除。
 
 首页使用 "Agnes Purple" 紫色主题，配有脉冲光环背景动画。
 

@@ -26,7 +26,7 @@ export const configHandlers = HttpApiBuilder.group(InstanceHttpApi, "config", (h
       const allProviders = Object.values(all)
       allProviders.sort((a, b) => (a.id === "agnes" ? -1 : b.id === "agnes" ? 1 : 0))
       const defaults = Provider.defaultModelIDs(all)
-      defaults["agnes"] = "agnes-2.0-flash"
+      defaults["agnes"] = "agnes-3.0-flash"
       return {
         providers: allProviders.map(Provider.toPublicInfo),
         default: defaults,

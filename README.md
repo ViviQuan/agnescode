@@ -54,12 +54,14 @@ On first launch, AgnesCode opens the provider connection dialog where you can en
 
 AgnesCode ships with the **Agnes AI** provider configured out of the box.
 
-| Model             | Context     | Pricing            |
-| ----------------- | ----------- | ------------------ |
-| `agnes-2.5-flash` | 512K tokens | Free (promotional) |
-| `agnes-2.0-flash` | 512K tokens | Free (promotional) |
+| Model               | Context     | Pricing            |
+| ------------------- | ----------- | ------------------ |
+| `agnes-3.0-flash`   | 512K tokens | Free (promotional) |
+| `agnes-2.5-flash`   | 512K tokens | Free (promotional) |
+| `agnes-2.5-pro`     | 1M tokens   | Paid               |
+| `agnes-2.5-pro-beta` | 1M tokens  | Paid               |
 
-Both models support image input (via URL), streaming, and multi-turn conversations. `agnes-2.5-flash` and `agnes-2.0-flash` additionally support tool calling, reasoning mode, and agent workflows. `agnes-2.5-flash` is a gradual-rollout upgrade of 2.0 with coding, agent workflow, and tool-calling optimizations; `agnes-2.0-flash` remains the stable default fallback.
+All models support image input (via URL), streaming, and multi-turn conversations. The flash models additionally support tool calling, thinking mode, and agent workflows, with `agnes-3.0-flash` tuned for AgnesCode coding and agent workflows. The pro models are paid reasoning models for advanced coding, scientific reasoning, and long-context analysis; `agnes-2.0-flash` has been deprecated and removed.
 
 The default theme, "Agnes Purple", uses the Agnes brand colors with a pulsing ring animation on the home screen.
 
