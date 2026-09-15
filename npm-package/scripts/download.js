@@ -11,7 +11,7 @@ const BIN_DIR = join(__dirname, "..", "bin")
 const IS_WINDOWS = platform() === "win32"
 const BIN_PATH = join(BIN_DIR, IS_WINDOWS ? "agnes.exe" : "agnes")
 
-const VERSION = "0.2.0"
+const VERSION = "0.2.1"
 
 function getTarget() {
   const os = platform()
