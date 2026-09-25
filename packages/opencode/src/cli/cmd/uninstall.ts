@@ -129,10 +129,10 @@ async function showRemovalSummary(targets: RemovalTargets, method: Installation.
 
   if (method !== "curl" && method !== "unknown") {
     const cmds: Record<string, string> = {
-      npm: "npm uninstall -g @agnes-ai/cli",
-      pnpm: "pnpm uninstall -g @agnes-ai/cli",
-      bun: "bun remove -g @agnes-ai/cli",
-      yarn: "yarn global remove @agnes-ai/cli",
+      npm: "npm uninstall -g agnescode",
+      pnpm: "pnpm uninstall -g agnescode",
+      bun: "bun remove -g agnescode",
+      yarn: "yarn global remove agnescode",
       brew: "brew uninstall agnescode",
       choco: "choco uninstall agnescode",
       scoop: "scoop uninstall agnescode",
@@ -180,10 +180,10 @@ async function executeUninstall(method: Installation.Method, targets: RemovalTar
 
   if (method !== "curl" && method !== "unknown") {
     const cmds: Record<string, string[]> = {
-      npm: ["npm", "uninstall", "-g", "@agnes-ai/cli"],
-      pnpm: ["pnpm", "uninstall", "-g", "@agnes-ai/cli"],
-      bun: ["bun", "remove", "-g", "@agnes-ai/cli"],
-      yarn: ["yarn", "global", "remove", "@agnes-ai/cli"],
+      npm: ["npm", "uninstall", "-g", "agnescode"],
+      pnpm: ["pnpm", "uninstall", "-g", "agnescode"],
+      bun: ["bun", "remove", "-g", "agnescode"],
+      yarn: ["yarn", "global", "remove", "agnescode"],
       brew: ["brew", "uninstall", "agnescode"],
       choco: ["choco", "uninstall", "agnescode"],
       scoop: ["scoop", "uninstall", "agnescode"],

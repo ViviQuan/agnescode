@@ -196,9 +196,7 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
 
         for (const check of checks) {
           const output = yield* check.command()
-          const installedName =
-            check.name === "brew" || check.name === "choco" || check.name === "scoop" ? "agnescode" : "@agnes-ai/cli"
-          if (output.includes(installedName)) {
+          if (output.includes("agnescode")) {
             return check.name
           }
         }
@@ -227,7 +225,7 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
         if (detectedMethod === "npm" || detectedMethod === "bun" || detectedMethod === "pnpm") {
           const response = yield* httpOk.execute(
             HttpClientRequest.get(
-              `${yield* NpmConfig.registry(process.cwd())}/@agnes-ai%2Fcli/${InstallationChannel}`,
+              `${yield* NpmConfig.registry(process.cwd())}/agnescode/${InstallationChannel}`,
             ).pipe(HttpClientRequest.acceptJson),
           )
           const data = yield* HttpClientResponse.schemaBodyJson(NpmPackage)(response)
@@ -269,13 +267,16 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
             upgradeResult = yield* upgradeCurl(target)
             break
           case "npm":
-            upgradeResult = yield* run(["npm", "install", "-g", `@agnes-ai/cli@${target}`])
+            upgradeResult = yield* run(["npm", "install", "-g", `agnescode@${target}`])
             break
           case "pnpm":
-            upgradeResult = yield* run(["pnpm", "install", "-g", `@agnes-ai/cli@${target}`])
+            upgradeResult = yield* run(["pnpm", "install", "-g", `agnescode@${target}`])
             break
           case "bun":
-            upgradeResult = yield* run(["bun", "install", "-g", `@agnes-ai/cli@${target}`])
+            upgradeResult = yield* run(["bun", "install", "-g", `agnescode@${target}`])
+            break
+          case "yarn":
+            upgradeResult = yield* run(["yarn", "global", "add", `agnescode@${target}`])
             break
           case "brew": {
             const formula = yield* getBrewFormula()
