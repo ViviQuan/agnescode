@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "name": "agnescode",
   "type": "module",
   "license": "MIT",

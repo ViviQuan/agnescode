@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { mkdirSync } from "fs"
-import { chmod, readFileSync, rm, rename } from "fs/promises"
+import { mkdirSync, readFileSync } from "fs"
+import { chmod, rm, rename } from "fs/promises"
 import { join, dirname } from "path"
 import { fileURLToPath } from "url"
 import { execSync } from "child_process"
