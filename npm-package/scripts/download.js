@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { mkdirSync } from "fs"
-import { chmod, rm, rename } from "fs/promises"
+import { chmod, readFileSync, rm, rename } from "fs/promises"
 import { join, dirname } from "path"
 import { fileURLToPath } from "url"
 import { execSync } from "child_process"
@@ -11,7 +11,7 @@ const BIN_DIR = join(__dirname, "..", "bin")
 const IS_WINDOWS = platform() === "win32"
 const BIN_PATH = join(BIN_DIR, IS_WINDOWS ? "agnes.exe" : "agnes")
 
-const VERSION = "0.2.1"
+const VERSION = JSON.parse(readFileSync(join(__dirname, "..", "package.json"), "utf8")).version
 
 function getTarget() {
   const os = platform()
