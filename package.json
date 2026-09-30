@@ -126,6 +126,7 @@
     "@opentui/solid": "catalog:",
     "@types/bun": "catalog:",
     "@types/node": "catalog:",
+    "open": "11.0.4",
     "@ai-sdk/openai": "3.0.88",
     "@ai-sdk/anthropic": "3.0.111"
   },
