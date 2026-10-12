@@ -10,6 +10,8 @@ import { withNetworkOptions, resolveNetworkOptionsNoConfig, hasArg } from "@/cli
 import { Filesystem } from "@/util/filesystem"
 import type { GlobalEvent } from "@agnes-ai/sdk/v2"
 import type { EventSource } from "@agnes-ai/tui/context/sdk"
+import type { UpdateNotice, UpdateSource } from "@agnes-ai/tui"
+import { InstallationVersion } from "@agnes-ai/core/installation/version"
 import { writeHeapSnapshot } from "v8"
 import { ServerAuth } from "@/server/auth"
 import { validateSession } from "../tui/validate-session"
@@ -45,6 +47,40 @@ function createEventSource(client: RpcClient): EventSource {
       return client.on<GlobalEvent>("global.event", (e) => {
         handler(e)
       })
+    },
+  }
+}
+
+// Mirrors the V2 CLI updater: the TUI process checks every 10 minutes and installs on this machine,
+// but only when the user picks an option in the /update dialog.
+function createUpdater(latest: () => Promise<UpdateNotice | undefined>): UpdateSource {
+  const listeners = new Set<(notice: UpdateNotice) => void>()
+  let current: UpdateNotice | undefined
+  const check = () =>
+    latest()
+      .then((notice) => {
+        if (!notice || JSON.stringify(notice) === JSON.stringify(current)) return
+        current = notice
+        listeners.forEach((notify) => notify(notice))
+      })
+      .catch(() => {})
+  setTimeout(check, 1000).unref?.()
+  setInterval(check, 10 * 60 * 1000).unref?.()
+  return {
+    subscribe: (notify) => {
+      if (current) notify(current)
+      listeners.add(notify)
+      return () => listeners.delete(notify)
+    },
+    check: async () => {
+      const { Installation } = await import("@/installation")
+      return { current: InstallationVersion, latest: await Installation.latest(await Installation.method()) }
+    },
+    apply: async (target) => {
+      const { Installation } = await import("@/installation")
+      const method = await Installation.method()
+      if (method === "unknown") throw new Error("Installation method not found")
+      return Installation.upgrade(method, target.version)
     },
   }
 }
@@ -249,9 +285,7 @@ export const TuiThreadCommand = cmd({
         return
       }
 
-      setTimeout(() => {
-        client.call("checkUpgrade", { directory: cwd }).catch(() => {})
-      }, 1000).unref?.()
+      const updater = createUpdater(async () => await client.call("checkUpgrade", { directory: cwd }))
 
       try {
         const { Effect } = await import("effect")
@@ -271,6 +305,7 @@ export const TuiThreadCommand = cmd({
             fetch: transport.fetch,
             headers: transport.headers,
             events: transport.events,
+            updater,
             args: {
               continue: args.continue,
               sessionID: args.session,

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "name": "@agnes-ai/core",
   "type": "module",
   "license": "MIT",
