@@ -7,7 +7,7 @@ import { Process } from "@/util/process"
 
 export const PrCommand = effectCmd({
   command: "pr <number>",
-  describe: "fetch and checkout a GitHub PR branch, then run agnescode",
+  describe: "fetch and checkout a GitHub PR branch, then run agnes",
   builder: (yargs) =>
     yargs.positional("number", {
       type: "number",
@@ -80,7 +80,7 @@ export const PrCommand = effectCmd({
           UI.println(`Importing session...`)
 
           const importResult = yield* Effect.promise(() =>
-            Process.text(["agnescode", "import", sessionUrl], { nothrow: true }),
+            Process.text(["agnes", "import", sessionUrl], { nothrow: true }),
           )
           if (importResult.code === 0) {
             const sessionIdMatch = importResult.text.trim().match(/Imported session: ([a-zA-Z0-9_-]+)/)
@@ -95,13 +95,13 @@ export const PrCommand = effectCmd({
 
     UI.println(`Successfully checked out PR #${prNumber} as branch '${localBranchName}'`)
     UI.println()
-    UI.println("Starting agnescode...")
+    UI.println("Starting agnes...")
     UI.println()
 
     const agnescodeArgs = sessionId ? ["-s", sessionId] : []
     const code = yield* Effect.promise(
       () =>
-        Process.spawn(["agnescode", ...agnescodeArgs], {
+        Process.spawn(["agnes", ...agnescodeArgs], {
           stdin: "inherit",
           stdout: "inherit",
           stderr: "inherit",
@@ -110,6 +110,6 @@ export const PrCommand = effectCmd({
     )
     // Match legacy throw semantics — propagate as a defect so the top-level
     // index.ts catch handles it identically (exit 1, "Unexpected error" banner).
-    if (code !== 0) return yield* Effect.die(new Error(`agnescode exited with code ${code}`))
+    if (code !== 0) return yield* Effect.die(new Error(`agnes exited with code ${code}`))
   }),
 })

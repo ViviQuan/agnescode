@@ -94,7 +94,7 @@ export function make(input: {
   const initialize = Effect.fn("ACP.initialize")(function* (params: InitializeRequest) {
     const started = performance.now()
     const authMethod: AuthMethod = {
-      description: "Run `agnescode auth login` in the terminal",
+      description: "Run `agnes auth login` in the terminal",
       name: "Login with agnescode",
       id: AuthMethodID,
     }
@@ -102,7 +102,7 @@ export function make(input: {
     if (params.clientCapabilities?._meta?.["terminal-auth"] === true) {
       authMethod._meta = {
         "terminal-auth": {
-          command: "agnescode",
+          command: "agnes",
           args: ["auth", "login"],
           label: "AgnesCode Login",
         },

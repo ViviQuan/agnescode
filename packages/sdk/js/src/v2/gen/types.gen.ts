@@ -1927,7 +1927,7 @@ export type Config = {
   share?: "manual" | "auto" | "disabled"
   autoshare?: boolean
   /**
-   * Check for new versions and show an update notice. Updates are never installed automatically; run /update or `agnescode upgrade`. Set to false to disable update checks. true and 'notify' behave the same
+   * Check for new versions and show an update notice. Updates are never installed automatically; run /update or `agnes upgrade`. Set to false to disable update checks. true and 'notify' behave the same
    */
   autoupdate?: boolean | "notify"
   disabled_providers?: Array<string>

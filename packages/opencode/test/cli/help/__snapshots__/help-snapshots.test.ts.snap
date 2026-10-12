@@ -1,7 +1,7 @@
 // Bun Snapshot v1, https://bun.sh/docs/test/snapshots
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode acp --help 1`] = `
-"agnescode acp
+"agnes acp
 
 start ACP (Agent Client Protocol) server
 
@@ -22,16 +22,16 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode mcp --help 1`] = `
-"agnescode mcp
+"agnes mcp
 
 manage MCP (Model Context Protocol) servers
 
 Commands:
-  agnescode mcp add [name]     add an MCP server
-  agnescode mcp list           list MCP servers and their status                       [aliases: ls]
-  agnescode mcp auth [name]    authenticate with an OAuth-enabled MCP server
-  agnescode mcp logout [name]  remove OAuth credentials for an MCP server
-  agnescode mcp debug <name>   debug OAuth connection for an MCP server
+  agnes mcp add [name]     add an MCP server
+  agnes mcp list           list MCP servers and their status                           [aliases: ls]
+  agnes mcp auth [name]    authenticate with an OAuth-enabled MCP server
+  agnes mcp logout [name]  remove OAuth credentials for an MCP server
+  agnes mcp debug <name>   debug OAuth connection for an MCP server
 
 Options:
   -h, --help        show help                                                              [boolean]
@@ -42,9 +42,9 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode attach --help 1`] = `
-"agnescode attach <url>
+"agnes attach <url>
 
-attach to a running agnescode server
+attach to a running agnes server
 
 Positionals:
   url  http://localhost:4096                                                     [string] [required]
@@ -68,9 +68,9 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode run --help 1`] = `
-"agnescode run [message..]
+"agnes run [message..]
 
-run agnescode with a message
+run agnes with a message
 
 Positionals:
   message  message to send                                                     [array] [default: []]
@@ -98,7 +98,7 @@ Options:
   -f, --file                                          file(s) to attach to message           [array]
       --title                                         title for the session (uses truncated prompt
                                                       if no value provided)                 [string]
-      --attach                                        attach to a running agnescode server (e.g.,
+      --attach                                        attach to a running agnes server (e.g.,
                                                       http://localhost:4096)                [string]
   -p, --password                                      basic auth password (defaults to
                                                       AGNESCODE_SERVER_PASSWORD)            [string]
@@ -120,24 +120,24 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode debug --help 1`] = `
-"agnescode debug
+"agnes debug
 
 debugging and troubleshooting tools
 
 Commands:
-  agnescode debug config        show resolved configuration
-  agnescode debug lsp           LSP debugging utilities
-  agnescode debug rg            ripgrep debugging utilities
-  agnescode debug file          file system debugging utilities
-  agnescode debug scrap         list all known projects
-  agnescode debug skill         list all available skills
-  agnescode debug snapshot      snapshot debugging utilities
-  agnescode debug startup       print startup timing
-  agnescode debug agent <name>  show agent configuration details
-  agnescode debug v2            debug v2 catalog and built-in plugins
-  agnescode debug info          show debug information
-  agnescode debug paths         show global paths (data, config, cache, state)
-  agnescode debug wait          wait indefinitely (for debugging)
+  agnes debug config        show resolved configuration
+  agnes debug lsp           LSP debugging utilities
+  agnes debug rg            ripgrep debugging utilities
+  agnes debug file          file system debugging utilities
+  agnes debug scrap         list all known projects
+  agnes debug skill         list all available skills
+  agnes debug snapshot      snapshot debugging utilities
+  agnes debug startup       print startup timing
+  agnes debug agent <name>  show agent configuration details
+  agnes debug v2            debug v2 catalog and built-in plugins
+  agnes debug info          show debug information
+  agnes debug paths         show global paths (data, config, cache, state)
+  agnes debug wait          wait indefinitely (for debugging)
 
 Options:
   -h, --help        show help                                                              [boolean]
@@ -148,14 +148,14 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode providers --help 1`] = `
-"agnescode providers
+"agnes providers
 
 manage AI providers and credentials
 
 Commands:
-  agnescode providers list               list providers and credentials                [aliases: ls]
-  agnescode providers login [url]        log in to a provider
-  agnescode providers logout [provider]  log out from a configured provider
+  agnes providers list               list providers and credentials                    [aliases: ls]
+  agnes providers login [url]        log in to a provider
+  agnes providers logout [provider]  log out from a configured provider
 
 Options:
   -h, --help        show help                                                              [boolean]
@@ -166,13 +166,13 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode agent --help 1`] = `
-"agnescode agent
+"agnes agent
 
 manage agents
 
 Commands:
-  agnescode agent create  create a new agent
-  agnescode agent list    list all available agents
+  agnes agent create  create a new agent
+  agnes agent list    list all available agents
 
 Options:
   -h, --help        show help                                                              [boolean]
@@ -183,9 +183,9 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode upgrade --help 1`] = `
-"agnescode upgrade [target]
+"agnes upgrade [target]
 
-upgrade agnescode to the latest or a specific version
+upgrade agnes to the latest or a specific version
 
 Positionals:
   target  version to upgrade to, for ex '0.1.48' or 'v0.1.48'                               [string]
@@ -201,9 +201,9 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode uninstall --help 1`] = `
-"agnescode uninstall
+"agnes uninstall
 
-uninstall agnescode and remove all related files
+uninstall agnes and remove all related files
 
 Options:
   -h, --help         show help                                                             [boolean]
@@ -218,9 +218,9 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode serve --help 1`] = `
-"agnescode serve
+"agnes serve
 
-starts a headless agnescode server
+starts a headless agnes server
 
 Options:
   -h, --help         show help                                                             [boolean]
@@ -238,9 +238,9 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode web --help 1`] = `
-"agnescode web
+"agnes web
 
-start agnescode server and open web interface
+start agnes server and open web interface
 
 Options:
   -h, --help         show help                                                             [boolean]
@@ -258,7 +258,7 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode models --help 1`] = `
-"agnescode models [provider]
+"agnes models [provider]
 
 list all available models
 
@@ -276,7 +276,7 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode stats --help 1`] = `
-"agnescode stats
+"agnes stats
 
 show token usage and cost statistics
 
@@ -294,7 +294,7 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode export --help 1`] = `
-"agnescode export [sessionID]
+"agnes export [sessionID]
 
 export session data as JSON
 
@@ -311,7 +311,7 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode import --help 1`] = `
-"agnescode import <file>
+"agnes import <file>
 
 import session data from JSON file or URL
 
@@ -327,13 +327,13 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode github --help 1`] = `
-"agnescode github
+"agnes github
 
 manage GitHub agent
 
 Commands:
-  agnescode github install  install the GitHub agent
-  agnescode github run      run the GitHub agent
+  agnes github install  install the GitHub agent
+  agnes github run      run the GitHub agent
 
 Options:
   -h, --help        show help                                                              [boolean]
@@ -344,9 +344,9 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode pr --help 1`] = `
-"agnescode pr <number>
+"agnes pr <number>
 
-fetch and checkout a GitHub PR branch, then run agnescode
+fetch and checkout a GitHub PR branch, then run agnes
 
 Positionals:
   number  PR number to checkout                                                  [number] [required]
@@ -360,13 +360,13 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode session --help 1`] = `
-"agnescode session
+"agnes session
 
 manage sessions
 
 Commands:
-  agnescode session list                list sessions
-  agnescode session delete <sessionID>  delete a session
+  agnes session list                list sessions
+  agnes session delete <sessionID>  delete a session
 
 Options:
   -h, --help        show help                                                              [boolean]
@@ -377,7 +377,7 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode plugin --help 1`] = `
-"agnescode plugin <module>
+"agnes plugin <module>
 
 install plugin and update config
 
@@ -395,13 +395,13 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode db --help 1`] = `
-"agnescode db
+"agnes db
 
 database tools
 
 Commands:
-  agnescode db [query]     open an interactive sqlite3 shell or run a query                [default]
-  agnescode db path        print the database path
+  agnes db [query]     open an interactive sqlite3 shell or run a query                    [default]
+  agnes db path        print the database path
 
 Positionals:
   query  SQL query to execute                                                               [string]
@@ -416,7 +416,7 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode mcp list --help 1`] = `
-"agnescode mcp list
+"agnes mcp list
 
 list MCP servers and their status
 
@@ -429,7 +429,7 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode mcp add --help 1`] = `
-"agnescode mcp add [name]
+"agnes mcp add [name]
 
 add an MCP server
 
@@ -448,12 +448,12 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode mcp auth --help 1`] = `
-"agnescode mcp auth [name]
+"agnes mcp auth [name]
 
 authenticate with an OAuth-enabled MCP server
 
 Commands:
-  agnescode mcp auth list  list OAuth-capable MCP servers and their auth status        [aliases: ls]
+  agnes mcp auth list  list OAuth-capable MCP servers and their auth status            [aliases: ls]
 
 Positionals:
   name  name of the MCP server                                                              [string]
@@ -467,7 +467,7 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode mcp logout --help 1`] = `
-"agnescode mcp logout [name]
+"agnes mcp logout [name]
 
 remove OAuth credentials for an MCP server
 
@@ -483,7 +483,7 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode providers list --help 1`] = `
-"agnescode providers list
+"agnes providers list
 
 list providers and credentials
 
@@ -496,12 +496,12 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode providers login --help 1`] = `
-"agnescode providers login [url]
+"agnes providers login [url]
 
 log in to a provider
 
 Positionals:
-  url  agnescode auth provider                                                              [string]
+  url  agnes auth provider                                                                  [string]
 
 Options:
   -h, --help        show help                                                              [boolean]
@@ -514,7 +514,7 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode providers logout --help 1`] = `
-"agnescode providers logout [provider]
+"agnes providers logout [provider]
 
 log out from a configured provider
 
@@ -530,7 +530,7 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode agent create --help 1`] = `
-"agnescode agent create
+"agnes agent create
 
 create a new agent
 
@@ -550,7 +550,7 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode agent list --help 1`] = `
-"agnescode agent list
+"agnes agent list
 
 list all available agents
 
@@ -563,7 +563,7 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode session list --help 1`] = `
-"agnescode session list
+"agnes session list
 
 list sessions
 
@@ -578,7 +578,7 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode session delete --help 1`] = `
-"agnescode session delete <sessionID>
+"agnes session delete <sessionID>
 
 delete a session
 
@@ -594,7 +594,7 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode github install --help 1`] = `
-"agnescode github install
+"agnes github install
 
 install the GitHub agent
 
@@ -607,7 +607,7 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode github run --help 1`] = `
-"agnescode github run
+"agnes github run
 
 run the GitHub agent
 
@@ -622,7 +622,7 @@ Options:
 `;
 
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode db path --help 1`] = `
-"agnescode db path
+"agnes db path
 
 print the database path
 

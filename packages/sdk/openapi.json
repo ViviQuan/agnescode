@@ -21262,7 +21262,7 @@
                 "enum": ["notify"]
               }
             ],
-            "description": "Check for new versions and show an update notice. Updates are never installed automatically; run /update or `agnescode upgrade`. Set to false to disable update checks. true and 'notify' behave the same"
+            "description": "Check for new versions and show an update notice. Updates are never installed automatically; run /update or `agnes upgrade`. Set to false to disable update checks. true and 'notify' behave the same"
           },
           "disabled_providers": {
             "type": "array",

@@ -125,7 +125,7 @@ async function toolError(part: ToolPart) {
 
 export const RunCommand = effectCmd({
   command: "run [message..]",
-  describe: "run agnescode with a message",
+  describe: "run agnes with a message",
   // --attach connects to a remote server (no local instance needed); the
   // default path runs an in-process server and needs the project instance.
   instance: (args) => !args.attach,
@@ -189,7 +189,7 @@ export const RunCommand = effectCmd({
       })
       .option("attach", {
         type: "string",
-        describe: "attach to a running agnescode server (e.g., http://localhost:4096)",
+        describe: "attach to a running agnes server (e.g., http://localhost:4096)",
       })
       .option("password", {
         alias: ["p"],
@@ -972,7 +972,7 @@ type MiniCommandInput = {
 export async function runMini(input: MiniCommandInput) {
   if (!RunCommand.handler) throw new Error("Mini command handler is unavailable")
   await RunCommand.handler({
-    $0: "agnescode",
+    $0: "agnes",
     _: ["mini"],
     message: input.prompt ? [input.prompt] : [],
     command: undefined,

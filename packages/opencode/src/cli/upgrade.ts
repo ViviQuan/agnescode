@@ -4,7 +4,7 @@ import { Flag } from "@agnes-ai/core/flag/flag"
 import { Installation } from "@/installation"
 import { InstallationVersion } from "@agnes-ai/core/installation/version"
 
-// Checking never installs anything. Updates only happen when the user runs `/update` or `agnescode upgrade`.
+// Checking never installs anything. Updates only happen when the user runs `/update` or `agnes upgrade`.
 export function shouldNotify(input: {
   autoupdate: boolean | "notify" | undefined
   disabled: boolean

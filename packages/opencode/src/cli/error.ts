@@ -64,7 +64,7 @@ export function FormatError(input: unknown): string | undefined {
     return [
       `Model not found: ${stringField(providerModelNotFound, "providerID")}/${stringField(providerModelNotFound, "modelID")}`,
       ...(suggestions.length ? ["Did you mean: " + suggestions.join(", ")] : []),
-      `Try: \`agnescode models\` to list available models`,
+      `Try: \`agnes models\` to list available models`,
       `Or check your config (agnescode.json) provider/model names`,
     ].join("\n")
   }
@@ -102,7 +102,7 @@ export function FormatError(input: unknown): string | undefined {
     return [
       `Failed to load remote config${remote ? ` from ${remote}` : ""}: the server returned a login page instead of JSON.`,
       `Authentication is missing or has expired (the endpoint is likely behind an SSO or identity-aware proxy).`,
-      ...(url ? [`Run \`agnescode auth login ${url}\` to re-authenticate.`] : []),
+      ...(url ? [`Run \`agnes auth login ${url}\` to re-authenticate.`] : []),
     ].join("\n")
   }
 
