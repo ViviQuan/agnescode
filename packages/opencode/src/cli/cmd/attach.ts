@@ -6,7 +6,7 @@ import { ServerAuth } from "@/server/auth"
 
 export const AttachCommand = cmd({
   command: "attach <url>",
-  describe: "attach to a running agnes server",
+  describe: "attach to a running agnescode server",
   builder: (yargs) =>
     yargs
       .positional("url", {

@@ -304,7 +304,7 @@ export const ProvidersLoginCommand = effectCmd({
   builder: (yargs: Argv) =>
     yargs
       .positional("url", {
-        describe: "agnes auth provider",
+        describe: "agnescode auth provider",
         type: "string",
       })
       .option("provider", {

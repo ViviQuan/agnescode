@@ -44,7 +44,7 @@ Options:
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode attach --help 1`] = `
 "agnes attach <url>
 
-attach to a running agnes server
+attach to a running agnescode server
 
 Positionals:
   url  http://localhost:4096                                                     [string] [required]
@@ -70,7 +70,7 @@ Options:
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode run --help 1`] = `
 "agnes run [message..]
 
-run agnes with a message
+run agnescode with a message
 
 Positionals:
   message  message to send                                                     [array] [default: []]
@@ -98,7 +98,7 @@ Options:
   -f, --file                                          file(s) to attach to message           [array]
       --title                                         title for the session (uses truncated prompt
                                                       if no value provided)                 [string]
-      --attach                                        attach to a running agnes server (e.g.,
+      --attach                                        attach to a running agnescode server (e.g.,
                                                       http://localhost:4096)                [string]
   -p, --password                                      basic auth password (defaults to
                                                       AGNESCODE_SERVER_PASSWORD)            [string]
@@ -185,7 +185,7 @@ Options:
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode upgrade --help 1`] = `
 "agnes upgrade [target]
 
-upgrade agnes to the latest or a specific version
+upgrade agnescode to the latest or a specific version
 
 Positionals:
   target  version to upgrade to, for ex '0.1.48' or 'v0.1.48'                               [string]
@@ -203,7 +203,7 @@ Options:
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode uninstall --help 1`] = `
 "agnes uninstall
 
-uninstall agnes and remove all related files
+uninstall agnescode and remove all related files
 
 Options:
   -h, --help         show help                                                             [boolean]
@@ -220,7 +220,7 @@ Options:
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode serve --help 1`] = `
 "agnes serve
 
-starts a headless agnes server
+starts a headless agnescode server
 
 Options:
   -h, --help         show help                                                             [boolean]
@@ -240,7 +240,7 @@ Options:
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode web --help 1`] = `
 "agnes web
 
-start agnes server and open web interface
+start agnescode server and open web interface
 
 Options:
   -h, --help         show help                                                             [boolean]
@@ -346,7 +346,7 @@ Options:
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode pr --help 1`] = `
 "agnes pr <number>
 
-fetch and checkout a GitHub PR branch, then run agnes
+fetch and checkout a GitHub PR branch, then run agnescode
 
 Positionals:
   number  PR number to checkout                                                  [number] [required]
@@ -501,7 +501,7 @@ exports[`agnescode CLI help-text snapshots every documented command emits stable
 log in to a provider
 
 Positionals:
-  url  agnes auth provider                                                                  [string]
+  url  agnescode auth provider                                                              [string]
 
 Options:
   -h, --help        show help                                                              [boolean]
