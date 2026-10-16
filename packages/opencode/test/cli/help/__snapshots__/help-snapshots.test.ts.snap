@@ -88,7 +88,6 @@ Options:
   -s, --session                                       session id to continue                [string]
       --fork                                          fork the session before continuing (requires
                                                       --continue or --session)             [boolean]
-      --share                                         share the session                    [boolean]
   -m, --model                                         model to use in the format of provider/model
                                                                                             [string]
       --agent                                         agent to use                          [string]
@@ -313,10 +312,10 @@ Options:
 exports[`agnescode CLI help-text snapshots every documented command emits stable help text: agnescode import --help 1`] = `
 "agnes import <file>
 
-import session data from JSON file or URL
+import session data from JSON file
 
 Positionals:
-  file  path to JSON file or share URL                                           [string] [required]
+  file  path to JSON file                                                        [string] [required]
 
 Options:
   -h, --help        show help                                                              [boolean]

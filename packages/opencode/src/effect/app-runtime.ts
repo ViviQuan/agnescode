@@ -45,7 +45,6 @@ import { Vcs } from "@/project/vcs"
 import { Workspace } from "@/control-plane/workspace"
 import { Worktree } from "@/worktree"
 import { Installation } from "@/installation"
-import { ShareNext } from "@/share/share-next"
 import { SessionShare } from "@/share/session"
 import { Npm } from "@agnes-ai/core/npm"
 import { memoMap } from "@agnes-ai/core/effect/memo-map"
@@ -104,7 +103,6 @@ export const AppLayer = AppNodeBuilder.build(
     Workspace.node,
     Worktree.node,
     Installation.node,
-    ShareNext.node,
     SessionShare.node,
   ]),
   [[InstanceStore.bootstrapNode, InstanceBootstrap.node]],

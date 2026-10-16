@@ -1768,6 +1768,23 @@ export type ProviderConfig = {
       release_date?: string
       attachment?: boolean
       reasoning?: boolean
+      /**
+       * Reasoning controls the model accepts, used to build its variants
+       */
+      reasoning_options?: Array<
+        | {
+            type: "effort"
+            values: Array<string>
+          }
+        | {
+            type: "toggle"
+          }
+        | {
+            type: "budget_tokens"
+            min?: number
+            max?: number
+          }
+      >
       temperature?: boolean
       tool_call?: boolean
       interleaved?:

@@ -60,17 +60,25 @@ export class UpgradeFailedError extends Schema.TaggedErrorClass<UpgradeFailedErr
   }
 }
 
+// Only a newer release in the installed major version is a normal update. Source builds (`local`) have
+// no installed major, so they follow the current 0.x line.
+export function isUpdate(current: string, latest: string) {
+  if (!semver.valid(latest)) return false
+  if (!semver.valid(current)) return semver.major(latest) === 0
+  return semver.major(latest) === semver.major(current) && semver.gt(latest, current)
+}
+
+// Releases are discovered from npm. Preview builds follow their own dist-tag, source builds follow latest.
+const NPM_TAG = InstallationChannel === "local" ? "latest" : InstallationChannel
+
 // Response schemas for external version APIs
-const GitHubRelease = Schema.Struct({ tag_name: Schema.String })
 const NpmPackage = Schema.Struct({ version: Schema.String })
-const BrewFormula = Schema.Struct({ versions: Schema.Struct({ stable: Schema.String }) })
 const BrewInfoV2 = Schema.Struct({
   formulae: Schema.Array(Schema.Struct({ versions: Schema.Struct({ stable: Schema.String }) })),
 })
 const ChocoPackage = Schema.Struct({
   d: Schema.Struct({ results: Schema.Array(Schema.Struct({ Version: Schema.String })) }),
 })
-const ScoopManifest = NpmPackage
 
 export interface Interface {
   readonly info: () => Effect.Effect<Info>
@@ -129,6 +137,36 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
       if (coreFormula.includes("agnescode")) return "agnescode"
       return "agnescode"
     })
+
+    const npmLatest = Effect.fnUntraced(function* () {
+      const response = yield* httpOk.execute(
+        HttpClientRequest.get(`${yield* NpmConfig.registry(process.cwd())}/agnescode/${NPM_TAG}`).pipe(
+          HttpClientRequest.acceptJson,
+        ),
+      )
+      const data = yield* HttpClientResponse.schemaBodyJson(NpmPackage)(response)
+      return data.version
+    })
+
+    // Chocolatey can only install versions its moderated community feed has published.
+    const chocoHas = Effect.fnUntraced(function* (version: string) {
+      const response = yield* httpOk.execute(
+        HttpClientRequest.get(
+          `https://community.chocolatey.org/api/v2/Packages?$filter=Id%20eq%20%27agnescode%27%20and%20Version%20eq%20%27${encodeURIComponent(version)}%27&$select=Version`,
+        ).pipe(HttpClientRequest.setHeaders({ Accept: "application/json;odata=verbose" })),
+      )
+      const data = yield* HttpClientResponse.schemaBodyJson(ChocoPackage)(response)
+      return data.d.results.length > 0
+    })
+
+    const tapVersion = Effect.fnUntraced(
+      function* (formula: string) {
+        const infoJson = yield* text(["brew", "info", "--json=v2", formula])
+        const info = yield* Schema.decodeUnknownEffect(Schema.fromJsonString(BrewInfoV2))(infoJson)
+        return info.formulae[0].versions.stable
+      },
+      Effect.orElseSucceed(() => undefined),
+    )
 
     const upgradeFailure = (method: Method, result?: { code: number; stdout: string; stderr: string }) => {
       if (method === "choco") return "not running from an elevated command shell"
@@ -203,62 +241,17 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
 
         return "unknown" as Method
       }),
+      // Reports the installed version when there's no update this install method can deliver.
       latest: Effect.fn("Installation.latest")(function* (installMethod?: Method) {
-        const detectedMethod = installMethod || (yield* result.method())
-
-        if (detectedMethod === "brew") {
-          const formula = yield* getBrewFormula()
-          if (formula.includes("/")) {
-            const infoJson = yield* text(["brew", "info", "--json=v2", formula])
-            const info = yield* Schema.decodeUnknownEffect(Schema.fromJsonString(BrewInfoV2))(infoJson)
-            return info.formulae[0].versions.stable
-          }
-          const response = yield* httpOk.execute(
-            HttpClientRequest.get("https://formulae.brew.sh/api/formula/agnescode.json").pipe(
-              HttpClientRequest.acceptJson,
-            ),
-          )
-          const data = yield* HttpClientResponse.schemaBodyJson(BrewFormula)(response)
-          return data.versions.stable
-        }
-
-        if (detectedMethod === "npm" || detectedMethod === "bun" || detectedMethod === "pnpm") {
-          const response = yield* httpOk.execute(
-            HttpClientRequest.get(
-              `${yield* NpmConfig.registry(process.cwd())}/agnescode/${InstallationChannel}`,
-            ).pipe(HttpClientRequest.acceptJson),
-          )
-          const data = yield* HttpClientResponse.schemaBodyJson(NpmPackage)(response)
-          return data.version
-        }
-
-        if (detectedMethod === "choco") {
-          const response = yield* httpOk.execute(
-            HttpClientRequest.get(
-              "https://community.chocolatey.org/api/v2/Packages?$filter=Id%20eq%20%27agnescode%27%20and%20IsLatestVersion&$select=Version",
-            ).pipe(HttpClientRequest.setHeaders({ Accept: "application/json;odata=verbose" })),
-          )
-          const data = yield* HttpClientResponse.schemaBodyJson(ChocoPackage)(response)
-          return data.d.results[0].Version
-        }
-
-        if (detectedMethod === "scoop") {
-          const response = yield* httpOk.execute(
-            HttpClientRequest.get(
-              "https://raw.githubusercontent.com/ScoopInstaller/Main/master/bucket/agnescode.json",
-            ).pipe(HttpClientRequest.setHeaders({ Accept: "application/json" })),
-          )
-          const data = yield* HttpClientResponse.schemaBodyJson(ScoopManifest)(response)
-          return data.version
-        }
-
-        const response = yield* httpOk.execute(
-          HttpClientRequest.get("https://api.github.com/repos/ViviQuan/agnescode/releases/latest").pipe(
-            HttpClientRequest.acceptJson,
-          ),
-        )
-        const data = yield* HttpClientResponse.schemaBodyJson(GitHubRelease)(response)
-        return data.tag_name.replace(/^v/, "")
+        const method = installMethod || (yield* result.method())
+        // Homebrew Core's agnescode formula can't deliver a tap release, so it can't be a normal update.
+        if (method === "brew" && !(yield* getBrewFormula()).includes("/")) return InstallationVersion
+        return yield* Effect.gen(function* () {
+          const found = yield* npmLatest()
+          if (!isUpdate(InstallationVersion, found)) return InstallationVersion
+          if (method === "choco" && !(yield* chocoHas(found))) return InstallationVersion
+          return found
+        }).pipe(Effect.timeout("10 seconds"))
       }, Effect.orDie),
       upgrade: Effect.fn("Installation.upgrade")(function* (m: Method, target: string) {
         let upgradeResult: { code: number; stdout: string; stderr: string } | undefined
@@ -281,22 +274,30 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
           case "brew": {
             const formula = yield* getBrewFormula()
             const env = { HOMEBREW_NO_AUTO_UPDATE: "1" }
-            if (formula.includes("/")) {
-              const tap = yield* run(["brew", "tap", "anomalyco/tap"], { env })
-              if (tap.code !== 0) {
-                upgradeResult = tap
+            if (!formula.includes("/"))
+              return yield* new UpgradeFailedError({
+                stderr: `Homebrew Core can't install agnescode ${target}. Reinstall from anomalyco/tap/agnescode to keep receiving updates.`,
+              })
+            const tap = yield* run(["brew", "tap", "anomalyco/tap"], { env })
+            if (tap.code !== 0) {
+              upgradeResult = tap
+              break
+            }
+            const repo = yield* text(["brew", "--repo", "anomalyco/tap"])
+            const dir = repo.trim()
+            if (dir) {
+              const pull = yield* run(["git", "pull", "--ff-only"], { cwd: dir, env })
+              if (pull.code !== 0) {
+                upgradeResult = pull
                 break
               }
-              const repo = yield* text(["brew", "--repo", "anomalyco/tap"])
-              const dir = repo.trim()
-              if (dir) {
-                const pull = yield* run(["git", "pull", "--ff-only"], { cwd: dir, env })
-                if (pull.code !== 0) {
-                  upgradeResult = pull
-                  break
-                }
-              }
             }
+            // The tap is updated shortly after npm, so a just-published release may not be installable yet.
+            const available = yield* tapVersion(formula)
+            if (!available || semver.major(available) !== semver.major(target) || semver.lt(available, target))
+              return yield* new UpgradeFailedError({
+                stderr: `Homebrew can't install agnescode ${target} yet: ${formula} is at ${available ?? "an unknown version"}. Try again in a few minutes.`,
+              })
             upgradeResult = yield* run(["brew", "upgrade", formula], { env })
             break
           }

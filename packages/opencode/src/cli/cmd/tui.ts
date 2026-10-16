@@ -74,7 +74,9 @@ function createUpdater(latest: () => Promise<UpdateNotice | undefined>): UpdateS
     },
     check: async () => {
       const { Installation } = await import("@/installation")
-      return { current: InstallationVersion, latest: await Installation.latest(await Installation.method()) }
+      // A failed check leaves latest unset, which /update reports as "Couldn't check for updates."
+      const latest = await Installation.latest(await Installation.method()).catch(() => undefined)
+      return { current: InstallationVersion, latest }
     },
     apply: async (target) => {
       const { Installation } = await import("@/installation")
