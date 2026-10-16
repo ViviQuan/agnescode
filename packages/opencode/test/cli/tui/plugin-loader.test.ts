@@ -443,6 +443,8 @@ export default {
       }
     },
   })
+  const previousPluginMeta = process.env.AGNESCODE_PLUGIN_META_FILE
+  process.env.AGNESCODE_PLUGIN_META_FILE = path.join(tmp.path, "plugin-meta.json")
   const cwd = spyOn(process, "cwd").mockImplementation(() => tmp.path)
   const wait = spyOn(TuiConfig, "waitForDependencies").mockResolvedValue()
 
@@ -571,6 +573,11 @@ export default {
     await TuiPluginRuntime.dispose()
     cwd.mockRestore()
     wait.mockRestore()
+    if (previousPluginMeta === undefined) {
+      delete process.env.AGNESCODE_PLUGIN_META_FILE
+    } else {
+      process.env.AGNESCODE_PLUGIN_META_FILE = previousPluginMeta
+    }
     if (backup === undefined) {
       await fs.rm(globalConfigPath, { force: true })
     } else {
