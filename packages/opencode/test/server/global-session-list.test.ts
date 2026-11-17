@@ -1,7 +1,7 @@
 import { describe, expect } from "bun:test"
 import { LayerNode } from "@agnes-ai/core/effect/layer-node"
 import { SessionProjector } from "@agnes-ai/core/session/projector"
-import { Deferred, Effect, Layer } from "effect"
+import { Deferred, Effect } from "effect"
 import { Project } from "@/project/project"
 import { Session as SessionNs } from "@/session/session"
 import { CrossSpawnSpawner } from "@agnes-ai/core/cross-spawn-spawner"

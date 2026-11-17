@@ -5,7 +5,6 @@ import { Effect, FileSystem, Layer } from "effect"
 import { CrossSpawnSpawner } from "@agnes-ai/core/cross-spawn-spawner"
 
 import { Instruction } from "../../src/session/instruction"
-import type { MessageV2 } from "../../src/session/message-v2"
 import { MessageID, PartID, SessionID } from "../../src/session/schema"
 import { Global } from "@agnes-ai/core/global"
 import { RuntimeFlags } from "../../src/effect/runtime-flags"

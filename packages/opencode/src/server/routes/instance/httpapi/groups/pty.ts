@@ -1,7 +1,7 @@
 import { Pty } from "@agnes-ai/core/pty"
 import { PtyTicket } from "@agnes-ai/core/pty/ticket"
 import { PtyID } from "@agnes-ai/core/pty/schema"
-import { PTY_CONNECT_TICKET_QUERY } from "@/server/shared/pty-ticket"
+import { PTY_CONNECT_PATH, PTY_CONNECT_TICKET_QUERY } from "@/server/shared/pty-ticket"
 import { Schema } from "effect"
 import { HttpApi, HttpApiEndpoint, HttpApiError, HttpApiGroup, OpenApi } from "effect/unstable/httpapi"
 import { Authorization, PtyConnectAuthorization } from "../middleware/authorization"
@@ -34,7 +34,7 @@ export const PtyPaths = {
   update: `${root}/:ptyID`,
   remove: `${root}/:ptyID`,
   connectToken: `${root}/:ptyID/connect-token`,
-  connect: `${root}/:ptyID/connect`,
+  connect: PTY_CONNECT_PATH,
 } as const
 
 export const PtyApi = HttpApi.make("pty")
